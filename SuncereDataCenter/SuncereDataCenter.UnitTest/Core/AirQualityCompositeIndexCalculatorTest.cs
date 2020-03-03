@@ -23,7 +23,6 @@ namespace SuncereDataCenter.UnitTest
             };
             calculator.CalculateAirQualityCompositeIndex(data1);
             Assert.IsNull(data1.AQCI);
-            Assert.IsNull(data1.AQMI);
             Assert.IsNull(data1.PrimaryPollutant);
             AirQualityCompositeIndexCalculate data2 = new AirQualityCompositeIndexCalculate()
             {
@@ -36,7 +35,6 @@ namespace SuncereDataCenter.UnitTest
             };
             calculator.CalculateAirQualityCompositeIndex(data2);
             Assert.AreEqual(data2.AQCI, 2);
-            Assert.AreEqual(data2.AQMI, 0.6);
             Assert.AreEqual(data2.PrimaryPollutant, "PM25");
             AirQualityCompositeIndexCalculate data3 = new AirQualityCompositeIndexCalculate()
             {
@@ -49,7 +47,6 @@ namespace SuncereDataCenter.UnitTest
             };
             calculator.CalculateAirQualityCompositeIndex(data3);
             Assert.AreEqual(data3.AQCI, 1.34);
-            Assert.AreEqual(data3.AQMI, 0.4);
             Assert.AreEqual(data3.PrimaryPollutant, "PM25");
         }
     }

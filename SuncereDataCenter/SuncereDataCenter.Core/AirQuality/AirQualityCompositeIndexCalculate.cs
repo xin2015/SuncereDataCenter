@@ -40,10 +40,6 @@ namespace SuncereDataCenter.Core.AirQuality
         /// </summary>
         public double? AQCI { get; set; }
         /// <summary>
-        /// 空气质量最大指数
-        /// </summary>
-        public double? AQMI { get; set; }
-        /// <summary>
         /// 首要污染物
         /// </summary>
         public string PrimaryPollutant { get; set; }

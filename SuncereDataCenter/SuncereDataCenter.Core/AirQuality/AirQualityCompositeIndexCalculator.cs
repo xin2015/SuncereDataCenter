@@ -64,8 +64,8 @@ namespace SuncereDataCenter.Core.AirQuality
                 if (calculate)
                 {
                     airQualityCompositeIndex.AQCI = airQualityIndividualIndexDic.Sum(o => o.Value);
-                    airQualityCompositeIndex.AQMI = airQualityIndividualIndexDic.Max(o => o.Value);
-                    airQualityCompositeIndex.PrimaryPollutant = string.Join(",", airQualityIndividualIndexDic.Where(o => o.Value == airQualityCompositeIndex.AQMI.Value).Select(o => o.Key));
+                    double max = airQualityIndividualIndexDic.Max(o => o.Value);
+                    airQualityCompositeIndex.PrimaryPollutant = string.Join(",", airQualityIndividualIndexDic.Where(o => o.Value == max).Select(o => o.Key));
                 }
             }
         }

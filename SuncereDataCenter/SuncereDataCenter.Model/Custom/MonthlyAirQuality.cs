@@ -9,6 +9,6 @@ namespace SuncereDataCenter.Model
 {
     public partial class MonthlyAirQuality : IAirQualityCompositeIndexCalculate
     {
-        public double? AQMI { get; set; }
+
     }
 }
