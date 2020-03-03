@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.Core", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.UnitTest", "SuncereDataCenter.UnitTest\SuncereDataCenter.UnitTest.csproj", "{92183AB0-7ACD-465C-A444-DDA4ED94628B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.Model", "SuncereDataCenter.Model\SuncereDataCenter.Model.csproj", "{F7250864-1B6C-4130-A94E-EF25D7F45573}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.API", "SuncereDataCenter.API\SuncereDataCenter.API.csproj", "{720180D4-75BD-4DCB-963C-49BAF476402B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{92183AB0-7ACD-465C-A444-DDA4ED94628B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92183AB0-7ACD-465C-A444-DDA4ED94628B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92183AB0-7ACD-465C-A444-DDA4ED94628B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7250864-1B6C-4130-A94E-EF25D7F45573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7250864-1B6C-4130-A94E-EF25D7F45573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7250864-1B6C-4130-A94E-EF25D7F45573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7250864-1B6C-4130-A94E-EF25D7F45573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{720180D4-75BD-4DCB-963C-49BAF476402B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720180D4-75BD-4DCB-963C-49BAF476402B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720180D4-75BD-4DCB-963C-49BAF476402B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720180D4-75BD-4DCB-963C-49BAF476402B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
