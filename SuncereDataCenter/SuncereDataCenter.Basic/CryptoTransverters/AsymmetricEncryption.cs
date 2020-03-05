@@ -17,6 +17,7 @@ namespace SuncereDataCenter.Basic.CryptoTransverters
         public static AsymmetricEncryption Default { get; set; }
         static AsymmetricEncryption()
         {
+            Default = new AsymmetricEncryption();
         }
 
         protected RSACryptoServiceProvider RSA { get; set; }

@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,12 +59,17 @@
     <Compile Include="AirQuality\IAirQualityShortTerm.cs" />
     <Compile Include="AirQuality\IAirQualityStatistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\TokenModel.cs" />
+    <Compile Include="System\TokenValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuncereDataCenter.Basic\SuncereDataCenter.Basic.csproj">
       <Project>{4966A142-EE4A-426D-B2D6-AF25250CE8B1}</Project>
       <Name>SuncereDataCenter.Basic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

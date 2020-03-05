@@ -71,7 +71,11 @@
     <Compile Include="CityYearlyAirQuality.cs">
       <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Custom\CityDailyAirQuality.cs" />
     <Compile Include="Custom\CityHourlyAirQuality.cs" />
+    <Compile Include="Custom\CityYearlyAirQuality.cs" />
+    <Compile Include="Custom\CityQuarterlyAirQuality.cs" />
+    <Compile Include="Custom\CityMonthlyAirQuality.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SuncereDataCenterModel.Context.cs">
       <AutoGen>True</AutoGen>
