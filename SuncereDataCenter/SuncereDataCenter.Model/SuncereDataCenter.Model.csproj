@@ -50,17 +50,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnnualAirQuality.cs">
+    <Compile Include="Area.cs">
       <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Custom\MonthlyAirQuality.cs" />
-    <Compile Include="MonthlyAirQuality.cs">
+    <Compile Include="City.cs">
       <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CityDailyAirQuality.cs">
+      <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CityHourlyAirQuality.cs">
+      <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CityMonthlyAirQuality.cs">
+      <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CityQuarterlyAirQuality.cs">
+      <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CityYearlyAirQuality.cs">
+      <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Custom\CityHourlyAirQuality.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuarterlyAirQuality.cs">
-      <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="SuncereDataCenterModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -111,5 +123,6 @@
       <Name>SuncereDataCenter.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

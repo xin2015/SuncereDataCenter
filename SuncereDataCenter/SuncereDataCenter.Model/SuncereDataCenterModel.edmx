@@ -5,7 +5,67 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SuncereDataCenterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="AnnualAirQuality">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="AreaCode" />
+          </Key>
+          <Property Name="AreaCode" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="AreaName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="AreaCity">
+          <Key>
+            <PropertyRef Name="AreaCode" />
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="AreaCode" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="CityCode" Type="nvarchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="CityCode" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Latitude" Type="float" />
+        </EntityType>
+        <EntityType Name="CityDailyAirQuality">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="Code" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="SO2" Type="float" />
+          <Property Name="NO2" Type="float" />
+          <Property Name="PM10" Type="float" />
+          <Property Name="CO" Type="float" />
+          <Property Name="O3" Type="float" />
+          <Property Name="PM25" Type="float" />
+          <Property Name="AQI" Type="float" />
+          <Property Name="Type" Type="nvarchar" MaxLength="16" />
+          <Property Name="PrimaryPollutant" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CityHourlyAirQuality">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="Code" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="SO2" Type="float" />
+          <Property Name="NO2" Type="float" />
+          <Property Name="PM10" Type="float" />
+          <Property Name="CO" Type="float" />
+          <Property Name="O3" Type="float" />
+          <Property Name="PM25" Type="float" />
+          <Property Name="AQI" Type="float" />
+          <Property Name="Type" Type="nvarchar" MaxLength="16" />
+          <Property Name="PrimaryPollutant" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CityMonthlyAirQuality">
           <Key>
             <PropertyRef Name="Code" />
             <PropertyRef Name="Time" />
@@ -23,7 +83,7 @@
           <Property Name="StandardDays" Type="float" />
           <Property Name="PrimaryPollutant" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <EntityType Name="MonthlyAirQuality">
+        <EntityType Name="CityQuarterlyAirQuality">
           <Key>
             <PropertyRef Name="Code" />
             <PropertyRef Name="Time" />
@@ -41,7 +101,7 @@
           <Property Name="StandardDays" Type="float" />
           <Property Name="PrimaryPollutant" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <EntityType Name="QuarterlyAirQuality">
+        <EntityType Name="CityYearlyAirQuality">
           <Key>
             <PropertyRef Name="Code" />
             <PropertyRef Name="Time" />
@@ -59,134 +119,299 @@
           <Property Name="StandardDays" Type="float" />
           <Property Name="PrimaryPollutant" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <Association Name="FK_AreaCity_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="AreaCity" Type="Self.AreaCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="AreaCode" />
+            </Principal>
+            <Dependent Role="AreaCity">
+              <PropertyRef Name="AreaCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaCity_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="AreaCity" Type="Self.AreaCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityCode" />
+            </Principal>
+            <Dependent Role="AreaCity">
+              <PropertyRef Name="CityCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SuncereDataCenterModelStoreContainer">
-          <EntitySet Name="AnnualAirQuality" EntityType="Self.AnnualAirQuality" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MonthlyAirQuality" EntityType="Self.MonthlyAirQuality" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="QuarterlyAirQuality" EntityType="Self.QuarterlyAirQuality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AreaCity" EntityType="Self.AreaCity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityDailyAirQuality" EntityType="Self.CityDailyAirQuality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityHourlyAirQuality" EntityType="Self.CityHourlyAirQuality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityMonthlyAirQuality" EntityType="Self.CityMonthlyAirQuality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityQuarterlyAirQuality" EntityType="Self.CityQuarterlyAirQuality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityYearlyAirQuality" EntityType="Self.CityYearlyAirQuality" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AreaCity_Area" Association="Self.FK_AreaCity_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="AreaCity" EntitySet="AreaCity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaCity_City" Association="Self.FK_AreaCity_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="AreaCity" EntitySet="AreaCity" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SuncereDataCenterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="AnnualAirQuality">
-          <Key>
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="Time" />
-          </Key>
-          <Property Name="Code" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SO2" Type="Double" />
-          <Property Name="NO2" Type="Double" />
-          <Property Name="PM10" Type="Double" />
-          <Property Name="CO" Type="Double" />
-          <Property Name="O3" Type="Double" />
-          <Property Name="PM25" Type="Double" />
-          <Property Name="AQCI" Type="Double" />
-          <Property Name="StandardDays" Type="Int32" />
-          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="MonthlyAirQuality">
-          <Key>
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="Time" />
-          </Key>
-          <Property Name="Code" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SO2" Type="Double" />
-          <Property Name="NO2" Type="Double" />
-          <Property Name="PM10" Type="Double" />
-          <Property Name="CO" Type="Double" />
-          <Property Name="O3" Type="Double" />
-          <Property Name="PM25" Type="Double" />
-          <Property Name="AQCI" Type="Double" />
-          <Property Name="StandardDays" Type="Int32" />
-          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="QuarterlyAirQuality">
-          <Key>
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="Time" />
-          </Key>
-          <Property Name="Code" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SO2" Type="Double" />
-          <Property Name="NO2" Type="Double" />
-          <Property Name="PM10" Type="Double" />
-          <Property Name="CO" Type="Double" />
-          <Property Name="O3" Type="Double" />
-          <Property Name="PM25" Type="Double" />
-          <Property Name="AQCI" Type="Double" />
-          <Property Name="StandardDays" Type="Int32" />
-          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityContainer Name="SuncereDataCenterEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AnnualAirQuality" EntityType="Self.AnnualAirQuality" />
-          <EntitySet Name="MonthlyAirQuality" EntityType="Self.MonthlyAirQuality" />
-          <EntitySet Name="QuarterlyAirQuality" EntityType="Self.QuarterlyAirQuality" />
+          <EntitySet Name="Area" EntityType="SuncereDataCenterModel.Area" />
+          <EntitySet Name="City" EntityType="SuncereDataCenterModel.City" />
+          <EntitySet Name="CityDailyAirQuality" EntityType="SuncereDataCenterModel.CityDailyAirQuality" />
+          <EntitySet Name="CityHourlyAirQuality" EntityType="SuncereDataCenterModel.CityHourlyAirQuality" />
+          <EntitySet Name="CityMonthlyAirQuality" EntityType="SuncereDataCenterModel.CityMonthlyAirQuality" />
+          <EntitySet Name="CityQuarterlyAirQuality" EntityType="SuncereDataCenterModel.CityQuarterlyAirQuality" />
+          <EntitySet Name="CityYearlyAirQuality" EntityType="SuncereDataCenterModel.CityYearlyAirQuality" />
+          <AssociationSet Name="AreaCity" Association="SuncereDataCenterModel.AreaCity">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="AreaCode" />
+          </Key>
+          <Property Name="AreaCode" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="AreaName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="SuncereDataCenterModel.AreaCity" FromRole="Area" ToRole="City" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="CityCode" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="CityName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <NavigationProperty Name="Area" Relationship="SuncereDataCenterModel.AreaCity" FromRole="City" ToRole="Area" />
+        </EntityType>
+        <EntityType Name="CityDailyAirQuality">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SO2" Type="Double" />
+          <Property Name="NO2" Type="Double" />
+          <Property Name="PM10" Type="Double" />
+          <Property Name="CO" Type="Double" />
+          <Property Name="O3" Type="Double" />
+          <Property Name="PM25" Type="Double" />
+          <Property Name="AQI" Type="Double" />
+          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CityHourlyAirQuality">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SO2" Type="Double" />
+          <Property Name="NO2" Type="Double" />
+          <Property Name="PM10" Type="Double" />
+          <Property Name="CO" Type="Double" />
+          <Property Name="O3" Type="Double" />
+          <Property Name="PM25" Type="Double" />
+          <Property Name="AQI" Type="Double" />
+          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CityMonthlyAirQuality">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SO2" Type="Double" />
+          <Property Name="NO2" Type="Double" />
+          <Property Name="PM10" Type="Double" />
+          <Property Name="CO" Type="Double" />
+          <Property Name="O3" Type="Double" />
+          <Property Name="PM25" Type="Double" />
+          <Property Name="AQCI" Type="Double" />
+          <Property Name="StandardDays" Type="Double" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CityQuarterlyAirQuality">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SO2" Type="Double" />
+          <Property Name="NO2" Type="Double" />
+          <Property Name="PM10" Type="Double" />
+          <Property Name="CO" Type="Double" />
+          <Property Name="O3" Type="Double" />
+          <Property Name="PM25" Type="Double" />
+          <Property Name="AQCI" Type="Double" />
+          <Property Name="StandardDays" Type="Double" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CityYearlyAirQuality">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SO2" Type="Double" />
+          <Property Name="NO2" Type="Double" />
+          <Property Name="PM10" Type="Double" />
+          <Property Name="CO" Type="Double" />
+          <Property Name="O3" Type="Double" />
+          <Property Name="PM25" Type="Double" />
+          <Property Name="AQCI" Type="Double" />
+          <Property Name="StandardDays" Type="Double" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="AreaCity">
+          <End Type="SuncereDataCenterModel.Area" Role="Area" Multiplicity="*" />
+          <End Type="SuncereDataCenterModel.City" Role="City" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SuncereDataCenterModelStoreContainer" CdmEntityContainer="SuncereDataCenterEntities">
-          <EntitySetMapping Name="AnnualAirQuality">
-            <EntityTypeMapping TypeName="SuncereDataCenterModel.AnnualAirQuality">
-              <MappingFragment StoreEntitySet="AnnualAirQuality">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SO2" ColumnName="SO2" />
-                <ScalarProperty Name="NO2" ColumnName="NO2" />
-                <ScalarProperty Name="PM10" ColumnName="PM10" />
-                <ScalarProperty Name="CO" ColumnName="CO" />
-                <ScalarProperty Name="O3" ColumnName="O3" />
-                <ScalarProperty Name="PM25" ColumnName="PM25" />
-                <ScalarProperty Name="AQCI" ColumnName="AQCI" />
-                <ScalarProperty Name="StandardDays" ColumnName="StandardDays" />
-                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+          <EntitySetMapping Name="Area">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="AreaCode" ColumnName="AreaCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MonthlyAirQuality">
-            <EntityTypeMapping TypeName="SuncereDataCenterModel.MonthlyAirQuality">
-              <MappingFragment StoreEntitySet="MonthlyAirQuality">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SO2" ColumnName="SO2" />
-                <ScalarProperty Name="NO2" ColumnName="NO2" />
-                <ScalarProperty Name="PM10" ColumnName="PM10" />
-                <ScalarProperty Name="CO" ColumnName="CO" />
-                <ScalarProperty Name="O3" ColumnName="O3" />
-                <ScalarProperty Name="PM25" ColumnName="PM25" />
-                <ScalarProperty Name="AQCI" ColumnName="AQCI" />
-                <ScalarProperty Name="StandardDays" ColumnName="StandardDays" />
-                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="QuarterlyAirQuality">
-            <EntityTypeMapping TypeName="SuncereDataCenterModel.QuarterlyAirQuality">
-              <MappingFragment StoreEntitySet="QuarterlyAirQuality">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SO2" ColumnName="SO2" />
-                <ScalarProperty Name="NO2" ColumnName="NO2" />
-                <ScalarProperty Name="PM10" ColumnName="PM10" />
-                <ScalarProperty Name="CO" ColumnName="CO" />
-                <ScalarProperty Name="O3" ColumnName="O3" />
-                <ScalarProperty Name="PM25" ColumnName="PM25" />
-                <ScalarProperty Name="AQCI" ColumnName="AQCI" />
-                <ScalarProperty Name="StandardDays" ColumnName="StandardDays" />
+          <EntitySetMapping Name="CityDailyAirQuality">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.CityDailyAirQuality">
+              <MappingFragment StoreEntitySet="CityDailyAirQuality">
                 <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="AQI" ColumnName="AQI" />
+                <ScalarProperty Name="PM25" ColumnName="PM25" />
+                <ScalarProperty Name="O3" ColumnName="O3" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="PM10" ColumnName="PM10" />
+                <ScalarProperty Name="NO2" ColumnName="NO2" />
+                <ScalarProperty Name="SO2" ColumnName="SO2" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CityHourlyAirQuality">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.CityHourlyAirQuality">
+              <MappingFragment StoreEntitySet="CityHourlyAirQuality">
+                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="AQI" ColumnName="AQI" />
+                <ScalarProperty Name="PM25" ColumnName="PM25" />
+                <ScalarProperty Name="O3" ColumnName="O3" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="PM10" ColumnName="PM10" />
+                <ScalarProperty Name="NO2" ColumnName="NO2" />
+                <ScalarProperty Name="SO2" ColumnName="SO2" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityMonthlyAirQuality">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.CityMonthlyAirQuality">
+              <MappingFragment StoreEntitySet="CityMonthlyAirQuality">
+                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="StandardDays" ColumnName="StandardDays" />
+                <ScalarProperty Name="AQCI" ColumnName="AQCI" />
+                <ScalarProperty Name="PM25" ColumnName="PM25" />
+                <ScalarProperty Name="O3" ColumnName="O3" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="PM10" ColumnName="PM10" />
+                <ScalarProperty Name="NO2" ColumnName="NO2" />
+                <ScalarProperty Name="SO2" ColumnName="SO2" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityQuarterlyAirQuality">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.CityQuarterlyAirQuality">
+              <MappingFragment StoreEntitySet="CityQuarterlyAirQuality">
+                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="StandardDays" ColumnName="StandardDays" />
+                <ScalarProperty Name="AQCI" ColumnName="AQCI" />
+                <ScalarProperty Name="PM25" ColumnName="PM25" />
+                <ScalarProperty Name="O3" ColumnName="O3" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="PM10" ColumnName="PM10" />
+                <ScalarProperty Name="NO2" ColumnName="NO2" />
+                <ScalarProperty Name="SO2" ColumnName="SO2" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityYearlyAirQuality">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.CityYearlyAirQuality">
+              <MappingFragment StoreEntitySet="CityYearlyAirQuality">
+                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="StandardDays" ColumnName="StandardDays" />
+                <ScalarProperty Name="AQCI" ColumnName="AQCI" />
+                <ScalarProperty Name="PM25" ColumnName="PM25" />
+                <ScalarProperty Name="O3" ColumnName="O3" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="PM10" ColumnName="PM10" />
+                <ScalarProperty Name="NO2" ColumnName="NO2" />
+                <ScalarProperty Name="SO2" ColumnName="SO2" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AreaCity" TypeName="SuncereDataCenterModel.AreaCity" StoreEntitySet="AreaCity">
+            <EndProperty Name="City">
+              <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+            </EndProperty>
+            <EndProperty Name="Area">
+              <ScalarProperty Name="AreaCode" ColumnName="AreaCode" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

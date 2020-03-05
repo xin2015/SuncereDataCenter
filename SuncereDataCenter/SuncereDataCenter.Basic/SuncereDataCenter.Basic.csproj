@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculators\RankCalculator.cs" />
     <Compile Include="CryptoTransverters\AsymmetricEncryption.cs" />
     <Compile Include="CryptoTransverters\IDecrypt.cs" />
     <Compile Include="CryptoTransverters\IEncrypt.cs" />

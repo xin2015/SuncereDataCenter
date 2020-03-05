@@ -18,10 +18,10 @@ namespace SuncereDataCenter.UnitTest.Model
             Random rand = new Random();
             AirQualityCompositeIndexCalculator calculator = new AirQualityCompositeIndexCalculator();
             calculator.CheckIntegrity = true;
-            List<MonthlyAirQuality> list = new List<MonthlyAirQuality>();
+            List<CityMonthlyAirQuality> list = new List<CityMonthlyAirQuality>();
             for (int i = 0; i < 100; i++)
             {
-                MonthlyAirQuality item = new MonthlyAirQuality()
+                CityMonthlyAirQuality item = new CityMonthlyAirQuality()
                 {
                     Code = string.Format("Code{0}", i.ToString().PadLeft(3, '0')),
                     Time = DateTime.Today,
@@ -34,12 +34,12 @@ namespace SuncereDataCenter.UnitTest.Model
                     PM25 = Math.Round(rand.NextDouble() * 35),
                     StandardDays = rand.Next(30)
                 };
-                calculator.CalculateAirQualityCompositeIndex(item);
+                //calculator.CalculateAirQualityCompositeIndex(item);
                 list.Add(item);
             }
             using (SuncereDataCenterEntities db = new SuncereDataCenterEntities())
             {
-                db.MonthlyAirQuality.AddRange(list);
+                db.CityMonthlyAirQuality.AddRange(list);
                 db.SaveChanges();
             }
         }

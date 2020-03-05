@@ -25,8 +25,12 @@ namespace SuncereDataCenter.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AnnualAirQuality> AnnualAirQuality { get; set; }
-        public virtual DbSet<MonthlyAirQuality> MonthlyAirQuality { get; set; }
-        public virtual DbSet<QuarterlyAirQuality> QuarterlyAirQuality { get; set; }
+        public virtual DbSet<Area> Area { get; set; }
+        public virtual DbSet<City> City { get; set; }
+        public virtual DbSet<CityDailyAirQuality> CityDailyAirQuality { get; set; }
+        public virtual DbSet<CityHourlyAirQuality> CityHourlyAirQuality { get; set; }
+        public virtual DbSet<CityMonthlyAirQuality> CityMonthlyAirQuality { get; set; }
+        public virtual DbSet<CityQuarterlyAirQuality> CityQuarterlyAirQuality { get; set; }
+        public virtual DbSet<CityYearlyAirQuality> CityYearlyAirQuality { get; set; }
     }
 }

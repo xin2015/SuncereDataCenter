@@ -12,7 +12,7 @@ namespace SuncereDataCenter.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class QuarterlyAirQuality
+    public partial class CityMonthlyAirQuality
     {
         public string Code { get; set; }
         public System.DateTime Time { get; set; }
@@ -24,7 +24,7 @@ namespace SuncereDataCenter.Model
         public Nullable<double> O3 { get; set; }
         public Nullable<double> PM25 { get; set; }
         public Nullable<double> AQCI { get; set; }
-        public Nullable<int> StandardDays { get; set; }
+        public Nullable<double> StandardDays { get; set; }
         public string PrimaryPollutant { get; set; }
     }
 }

@@ -17,16 +17,16 @@ namespace SuncereDataCenter.API.Controllers
         private SuncereDataCenterEntities db = new SuncereDataCenterEntities();
 
         // GET: api/MonthlyAirQualities
-        public IQueryable<MonthlyAirQuality> GetMonthlyAirQuality()
+        public IQueryable<CityMonthlyAirQuality> GetMonthlyAirQuality()
         {
-            return db.MonthlyAirQuality;
+            return db.CityMonthlyAirQuality;
         }
 
         // GET: api/MonthlyAirQualities/5
-        [ResponseType(typeof(MonthlyAirQuality))]
+        [ResponseType(typeof(CityMonthlyAirQuality))]
         public IHttpActionResult GetMonthlyAirQuality(string id)
         {
-            MonthlyAirQuality monthlyAirQuality = db.MonthlyAirQuality.Find(id);
+            CityMonthlyAirQuality monthlyAirQuality = db.CityMonthlyAirQuality.Find(id);
             if (monthlyAirQuality == null)
             {
                 return NotFound();
@@ -37,7 +37,7 @@ namespace SuncereDataCenter.API.Controllers
 
         // PUT: api/MonthlyAirQualities/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutMonthlyAirQuality(string id, MonthlyAirQuality monthlyAirQuality)
+        public IHttpActionResult PutMonthlyAirQuality(string id, CityMonthlyAirQuality monthlyAirQuality)
         {
             if (!ModelState.IsValid)
             {
@@ -71,15 +71,15 @@ namespace SuncereDataCenter.API.Controllers
         }
 
         // POST: api/MonthlyAirQualities
-        [ResponseType(typeof(MonthlyAirQuality))]
-        public IHttpActionResult PostMonthlyAirQuality(MonthlyAirQuality monthlyAirQuality)
+        [ResponseType(typeof(CityMonthlyAirQuality))]
+        public IHttpActionResult PostMonthlyAirQuality(CityMonthlyAirQuality monthlyAirQuality)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.MonthlyAirQuality.Add(monthlyAirQuality);
+            db.CityMonthlyAirQuality.Add(monthlyAirQuality);
 
             try
             {
@@ -101,16 +101,16 @@ namespace SuncereDataCenter.API.Controllers
         }
 
         // DELETE: api/MonthlyAirQualities/5
-        [ResponseType(typeof(MonthlyAirQuality))]
+        [ResponseType(typeof(CityMonthlyAirQuality))]
         public IHttpActionResult DeleteMonthlyAirQuality(string id)
         {
-            MonthlyAirQuality monthlyAirQuality = db.MonthlyAirQuality.Find(id);
+            CityMonthlyAirQuality monthlyAirQuality = db.CityMonthlyAirQuality.Find(id);
             if (monthlyAirQuality == null)
             {
                 return NotFound();
             }
 
-            db.MonthlyAirQuality.Remove(monthlyAirQuality);
+            db.CityMonthlyAirQuality.Remove(monthlyAirQuality);
             db.SaveChanges();
 
             return Ok(monthlyAirQuality);
@@ -127,7 +127,7 @@ namespace SuncereDataCenter.API.Controllers
 
         private bool MonthlyAirQualityExists(string id)
         {
-            return db.MonthlyAirQuality.Count(e => e.Code == id) > 0;
+            return db.CityMonthlyAirQuality.Count(e => e.Code == id) > 0;
         }
     }
 }

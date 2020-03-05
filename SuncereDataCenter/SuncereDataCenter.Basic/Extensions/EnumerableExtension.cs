@@ -39,6 +39,31 @@ namespace SuncereDataCenter.Basic.Extensions
             }
         }
 
+        public static double? Percentile(this IEnumerable<double?> source, double p)
+        {
+            double? percentile;
+            IEnumerable<double> temp = source.Where(o => o.HasValue).Select(o => o.Value);
+            if (temp.Any())
+            {
+                percentile = temp.Percentile(p);
+            }
+            else
+            {
+                percentile = null;
+            }
+            return percentile;
+        }
+
+        public static double Percentile<TSource>(this IEnumerable<TSource> source, Func<TSource, double> selector, double p)
+        {
+            return source.Select(o => selector(o)).Percentile(p);
+        }
+
+        public static double? Percentile<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector, double p)
+        {
+            return source.Select(o => selector(o)).Percentile(p);
+        }
+
         /// <summary>
         /// 计算序列的百分位数
         /// </summary>

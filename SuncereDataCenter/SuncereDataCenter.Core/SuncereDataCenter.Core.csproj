@@ -43,14 +43,25 @@
   <ItemGroup>
     <Compile Include="AirQuality\AirQualityCompositeIndexCalculate.cs" />
     <Compile Include="AirQuality\AirQualityCompositeIndexCalculator.cs" />
+    <Compile Include="AirQuality\AirQualityLongTermCalculator.cs" />
+    <Compile Include="AirQuality\AirQualityShortTermCalculator.cs" />
     <Compile Include="AirQuality\BaseAirQualityCalculator.cs" />
     <Compile Include="AirQuality\IAirQualityCompositeIndex.cs" />
     <Compile Include="AirQuality\IAirQualityCompositeIndexCalculate.cs" />
     <Compile Include="AirQuality\IAirQualityIndex.cs" />
     <Compile Include="AirQuality\IAirQualityIndexCalculate.cs" />
+    <Compile Include="AirQuality\IAirQualityLongTerm.cs" />
     <Compile Include="AirQuality\IAirQualityPollutantConcentration.cs" />
     <Compile Include="AirQuality\IAirQualityPollutantIndex.cs" />
+    <Compile Include="AirQuality\IAirQualityShortTerm.cs" />
+    <Compile Include="AirQuality\IAirQualityStatistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuncereDataCenter.Basic\SuncereDataCenter.Basic.csproj">
+      <Project>{4966A142-EE4A-426D-B2D6-AF25250CE8B1}</Project>
+      <Name>SuncereDataCenter.Basic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

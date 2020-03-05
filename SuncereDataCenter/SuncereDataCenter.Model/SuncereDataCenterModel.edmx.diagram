@@ -5,9 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6b74eba91a604d288d33486ea92909c2" Name="Diagram1">
-        <EntityTypeShape EntityType="SuncereDataCenterModel.AnnualAirQuality" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SuncereDataCenterModel.MonthlyAirQuality" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SuncereDataCenterModel.QuarterlyAirQuality" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.Area" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.City" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.CityDailyAirQuality" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.CityHourlyAirQuality" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.CityMonthlyAirQuality" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.CityQuarterlyAirQuality" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.CityYearlyAirQuality" Width="1.5" PointX="7.75" PointY="4.75" />
+        <AssociationConnector Association="SuncereDataCenterModel.AreaCity" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
