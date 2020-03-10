@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SuncereDataCenter.Basic.CryptoTransverters;
+using SuncereDataCenter.Core.SystemManagement;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,6 +28,12 @@ namespace SuncereDataCenter.API.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public string GetToken()
+        {
+            TokenModel tm = new TokenModel("admin", "Suncere@123");
+            return AsymmetricEncryption.Default.EncryptToString(JsonConvert.SerializeObject(tm));
         }
     }
 }
