@@ -35,7 +35,7 @@ namespace SuncereDataCenter.UnitTest
             };
             calculator.CalculateAirQualityCompositeIndex(data2);
             Assert.AreEqual(data2.AQCI, 2);
-            Assert.AreEqual(data2.PrimaryPollutant, "PM25");
+            Assert.AreEqual(data2.PrimaryPollutant, "细颗粒物(PM2.5)");
             AirQualityCompositeIndexCalculate data3 = new AirQualityCompositeIndexCalculate()
             {
                 SO2 = 14,
@@ -47,7 +47,7 @@ namespace SuncereDataCenter.UnitTest
             };
             calculator.CalculateAirQualityCompositeIndex(data3);
             Assert.AreEqual(data3.AQCI, 1.34);
-            Assert.AreEqual(data3.PrimaryPollutant, "PM25");
+            Assert.AreEqual(data3.PrimaryPollutant, "细颗粒物(PM2.5)");
         }
     }
 }

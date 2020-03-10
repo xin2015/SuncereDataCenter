@@ -17,7 +17,7 @@ namespace SuncereDataCenter.Core.Sync
         {
             Interval = TimeSpan.FromDays(30);
             StartTimeDeviation = TimeSpan.FromDays(1);
-            EndTimeDeviation = TimeSpan.FromDays(30);
+            EndTimeDeviation = TimeSpan.FromDays(2);
         }
 
         protected override void Sync(SyncDataQueue queue)
@@ -27,10 +27,6 @@ namespace SuncereDataCenter.Core.Sync
             List<CityDailyAirQuality> source = Entities.CityDailyAirQuality.Where(o => o.Time >= startTime && o.Time <= endTime).ToList();
             if (source.Any())
             {
-                MapperConfigurationExpression config = new MapperConfigurationExpression();
-                config.CreateMap<CityDailyAirQuality, AirQualityShortTerm>();
-                config.CreateMap<AirQualityLongTerm, CityMonthlyAirQuality>();
-                Mapper.Initialize(config);
                 List<AirQualityShortTerm> airQualityShortTermList = Mapper.Map<List<AirQualityShortTerm>>(source);
                 List<CityMonthlyAirQuality> list = new List<CityMonthlyAirQuality>();
                 AirQualityLongTermCalculator calculator = new AirQualityLongTermCalculator();

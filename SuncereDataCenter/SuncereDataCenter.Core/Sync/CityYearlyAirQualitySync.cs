@@ -26,10 +26,8 @@ namespace SuncereDataCenter.Core.Sync
             List<CityDailyAirQuality> source = Entities.CityDailyAirQuality.Where(o => o.Time >= startTime && o.Time <= endTime).ToList();
             if (source.Any())
             {
-                Mapper.Initialize(x => x.CreateMap<CityDailyAirQuality, AirQualityShortTerm>());
-                Mapper.Initialize(x => x.CreateMap<CityMonthlyAirQuality, AirQualityLongTerm>());
                 List<AirQualityShortTerm> airQualityShortTermList = Mapper.Map<List<AirQualityShortTerm>>(source);
-                List<CityMonthlyAirQuality> list = new List<CityMonthlyAirQuality>();
+                List<CityYearlyAirQuality> list = new List<CityYearlyAirQuality>();
                 AirQualityLongTermCalculator calculator = new AirQualityLongTermCalculator();
                 foreach (var cityGroup in airQualityShortTermList.GroupBy(o => o.Code))
                 {
@@ -41,11 +39,11 @@ namespace SuncereDataCenter.Core.Sync
                         Name = first.Name
                     };
                     calculator.Calculate(cityGroup, item);
-                    list.Add(Mapper.Map<CityMonthlyAirQuality>(item));
+                    list.Add(Mapper.Map<CityYearlyAirQuality>(item));
                 }
-                IQueryable<CityMonthlyAirQuality> oldList = Entities.CityMonthlyAirQuality.Where(o => o.Time == startTime);
-                Entities.CityMonthlyAirQuality.RemoveRange(oldList);
-                Entities.CityMonthlyAirQuality.AddRange(list);
+                IQueryable<CityYearlyAirQuality> oldList = Entities.CityYearlyAirQuality.Where(o => o.Time == startTime);
+                Entities.CityYearlyAirQuality.RemoveRange(oldList);
+                Entities.CityYearlyAirQuality.AddRange(list);
                 queue.Status = true;
             }
             queue.LastTime = DateTime.Now;

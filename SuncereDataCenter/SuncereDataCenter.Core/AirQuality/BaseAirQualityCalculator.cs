@@ -16,12 +16,20 @@ namespace SuncereDataCenter.Core.AirQuality
         /// </summary>
         public bool CheckIntegrity { get; set; }
 
+        public Dictionary<string, string> PrimaryPollutantDic { get; set; }
+
         /// <summary>
         /// 空气质量计算器基类构造函数
         /// </summary>
         public BaseAirQualityCalculator()
         {
-
+            PrimaryPollutantDic = new Dictionary<string, string>();
+            PrimaryPollutantDic.Add("SO2", "二氧化硫");
+            PrimaryPollutantDic.Add("NO2", "二氧化氮");
+            PrimaryPollutantDic.Add("PM10", "颗粒物(PM10)");
+            PrimaryPollutantDic.Add("CO", "一氧化碳");
+            PrimaryPollutantDic.Add("O3", "臭氧8小时");
+            PrimaryPollutantDic.Add("PM25", "细颗粒物(PM2.5)");
         }
 
         protected virtual Dictionary<string, double?> ToDictionary(IAirQualityPollutantConcentration data)
