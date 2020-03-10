@@ -50,14 +50,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AQIDataPublishHistory.cs">
+      <DependentUpon>EnvPublishStdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AQIDataPublishLive.cs">
+      <DependentUpon>EnvPublishStdModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Area.cs">
       <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
     </Compile>
     <Compile Include="City.cs">
       <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CityAQIPublishHistory.cs">
+      <DependentUpon>EnvPublishStdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CityAQIPublishLive.cs">
+      <DependentUpon>EnvPublishStdModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CityDailyAirQuality.cs">
       <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CityDayAQIPublishHistory.cs">
+      <DependentUpon>EnvPublishStdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CityDayAQIPublishLive.cs">
+      <DependentUpon>EnvPublishStdModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CityHourlyAirQuality.cs">
       <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
@@ -71,11 +89,21 @@
     <Compile Include="CityYearlyAirQuality.cs">
       <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Custom\CityDailyAirQuality.cs" />
-    <Compile Include="Custom\CityHourlyAirQuality.cs" />
-    <Compile Include="Custom\CityYearlyAirQuality.cs" />
-    <Compile Include="Custom\CityQuarterlyAirQuality.cs" />
-    <Compile Include="Custom\CityMonthlyAirQuality.cs" />
+    <Compile Include="EnvPublishStdModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnvPublishStdModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EnvPublishStdModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnvPublishStdModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EnvPublishStdModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnvPublishStdModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SuncereDataCenterModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -92,6 +120,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SuncereDataCenterModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="SuncerePermission.cs">
+      <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SuncereRole.cs">
+      <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SuncereUser.cs">
+      <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SyncDataQueue.cs">
+      <DependentUpon>SuncereDataCenterModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="SuncereDataCenterModel.edmx">
@@ -101,12 +141,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <EntityDeploy Include="EnvPublishStdModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EnvPublishStdModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EnvPublishStdModel.edmx.diagram">
+      <DependentUpon>EnvPublishStdModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="SuncereDataCenterModel.edmx.diagram">
       <DependentUpon>SuncereDataCenterModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EnvPublishStdModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EnvPublishStdModel.edmx</DependentUpon>
+      <LastGenOutput>EnvPublishStdModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EnvPublishStdModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EnvPublishStdModel.edmx</DependentUpon>
+      <LastGenOutput>EnvPublishStdModel.cs</LastGenOutput>
+    </Content>
     <Content Include="SuncereDataCenterModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SuncereDataCenterModel.Context.cs</LastGenOutput>
@@ -120,12 +177,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SuncereDataCenter.Core\SuncereDataCenter.Core.csproj">
-      <Project>{1C3AAA6C-E872-48B8-97B4-0442D46C5AFD}</Project>
-      <Name>SuncereDataCenter.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

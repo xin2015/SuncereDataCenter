@@ -63,7 +63,7 @@ namespace SuncereDataCenter.Core.AirQuality
                 bool calculate = CheckIntegrity ? airQualityIndividualIndexDic.Count == 6 : true;
                 if (calculate)
                 {
-                    airQualityCompositeIndex.AQCI = airQualityIndividualIndexDic.Sum(o => o.Value);
+                    airQualityCompositeIndex.AQCI = Math.Round(airQualityIndividualIndexDic.Sum(o => o.Value), 2);
                     double max = airQualityIndividualIndexDic.Max(o => o.Value);
                     airQualityCompositeIndex.PrimaryPollutant = string.Join(",", airQualityIndividualIndexDic.Where(o => o.Value == max).Select(o => o.Key));
                 }

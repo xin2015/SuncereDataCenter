@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EnvPublishStdModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AQIDataPublishHistory">
+          <Key>
+            <PropertyRef Name="TimePoint" />
+            <PropertyRef Name="StationCode" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimePoint" Type="datetime" Nullable="false" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
+          <Property Name="PositionName" Type="varchar" MaxLength="40" />
+          <Property Name="StationCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CO" Type="varchar" MaxLength="8" />
+          <Property Name="CO_24h" Type="varchar" MaxLength="8" />
+          <Property Name="Latitude" Type="varchar" MaxLength="15" />
+          <Property Name="Longitude" Type="varchar" MaxLength="15" />
+          <Property Name="Measure" Type="varchar" MaxLength="255" />
+          <Property Name="NO2" Type="varchar" MaxLength="5" />
+          <Property Name="NO2_24h" Type="varchar" MaxLength="5" />
+          <Property Name="O3" Type="varchar" MaxLength="5" />
+          <Property Name="O3_24h" Type="varchar" MaxLength="5" />
+          <Property Name="O3_8h" Type="varchar" MaxLength="5" />
+          <Property Name="O3_8h_24h" Type="varchar" MaxLength="5" />
+          <Property Name="PM10" Type="varchar" MaxLength="5" />
+          <Property Name="PM10_24h" Type="varchar" MaxLength="5" />
+          <Property Name="PM2_5" Type="varchar" MaxLength="5" />
+          <Property Name="PM2_5_24h" Type="varchar" MaxLength="5" />
+          <Property Name="SO2" Type="varchar" MaxLength="5" />
+          <Property Name="SO2_24h" Type="varchar" MaxLength="5" />
+          <Property Name="AQI" Type="varchar" MaxLength="5" />
+          <Property Name="PrimaryPollutant" Type="varchar" MaxLength="255" />
+          <Property Name="Quality" Type="varchar" MaxLength="255" />
+          <Property Name="Unheathful" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="AQIDataPublishLive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimePoint" Type="datetime" Nullable="false" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
+          <Property Name="PositionName" Type="varchar" MaxLength="40" />
+          <Property Name="StationCode" Type="varchar" MaxLength="5" />
+          <Property Name="CO" Type="varchar" MaxLength="8" />
+          <Property Name="CO_24h" Type="varchar" MaxLength="8" />
+          <Property Name="Latitude" Type="varchar" MaxLength="15" />
+          <Property Name="Longitude" Type="varchar" MaxLength="15" />
+          <Property Name="Measure" Type="varchar" MaxLength="255" />
+          <Property Name="NO2" Type="varchar" MaxLength="5" />
+          <Property Name="NO2_24h" Type="varchar" MaxLength="5" />
+          <Property Name="O3" Type="varchar" MaxLength="5" />
+          <Property Name="O3_24h" Type="varchar" MaxLength="5" />
+          <Property Name="O3_8h" Type="varchar" MaxLength="5" />
+          <Property Name="O3_8h_24h" Type="varchar" MaxLength="5" />
+          <Property Name="PM10" Type="varchar" MaxLength="5" />
+          <Property Name="PM10_24h" Type="varchar" MaxLength="5" />
+          <Property Name="PM2_5" Type="varchar" MaxLength="5" />
+          <Property Name="PM2_5_24h" Type="varchar" MaxLength="5" />
+          <Property Name="SO2" Type="varchar" MaxLength="5" />
+          <Property Name="SO2_24h" Type="varchar" MaxLength="5" />
+          <Property Name="AQI" Type="varchar" MaxLength="5" />
+          <Property Name="PrimaryPollutant" Type="varchar" MaxLength="255" />
+          <Property Name="Quality" Type="varchar" MaxLength="255" />
+          <Property Name="Unheathful" Type="varchar" MaxLength="255" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="IsPublish" Type="bit" />
+        </EntityType>
+        <EntityType Name="CityAQIPublishHistory">
+          <Key>
+            <PropertyRef Name="TimePoint" />
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimePoint" Type="datetime" Nullable="false" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityCode" Type="int" Nullable="false" />
+          <Property Name="CO" Type="varchar" MaxLength="8" />
+          <Property Name="NO2" Type="varchar" MaxLength="5" />
+          <Property Name="O3" Type="varchar" MaxLength="5" />
+          <Property Name="PM10" Type="varchar" MaxLength="5" />
+          <Property Name="PM2_5" Type="varchar" MaxLength="5" />
+          <Property Name="SO2" Type="varchar" MaxLength="5" />
+          <Property Name="AQI" Type="varchar" MaxLength="5" />
+          <Property Name="PrimaryPollutant" Type="varchar" MaxLength="255" />
+          <Property Name="Quality" Type="varchar" MaxLength="255" />
+          <Property Name="Measure" Type="varchar" MaxLength="255" />
+          <Property Name="Unheathful" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CityAQIPublishLive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimePoint" Type="datetime" Nullable="false" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityCode" Type="int" Nullable="false" />
+          <Property Name="CO" Type="varchar" MaxLength="8" />
+          <Property Name="NO2" Type="varchar" MaxLength="5" />
+          <Property Name="O3" Type="varchar" MaxLength="5" />
+          <Property Name="PM10" Type="varchar" MaxLength="5" />
+          <Property Name="PM2_5" Type="varchar" MaxLength="5" />
+          <Property Name="SO2" Type="varchar" MaxLength="5" />
+          <Property Name="AQI" Type="varchar" MaxLength="5" />
+          <Property Name="PrimaryPollutant" Type="varchar" MaxLength="255" />
+          <Property Name="Quality" Type="varchar" MaxLength="255" />
+          <Property Name="Measure" Type="varchar" MaxLength="255" />
+          <Property Name="Unheathful" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CityDayAQIPublishHistory">
+          <Key>
+            <PropertyRef Name="TimePoint" />
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimePoint" Type="datetime" Nullable="false" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityCode" Type="int" Nullable="false" />
+          <Property Name="SO2_24h" Type="varchar" MaxLength="5" />
+          <Property Name="CO_24h" Type="varchar" MaxLength="8" />
+          <Property Name="NO2_24h" Type="varchar" MaxLength="5" />
+          <Property Name="O3_8h_24h" Type="varchar" MaxLength="5" />
+          <Property Name="PM10_24h" Type="varchar" MaxLength="5" />
+          <Property Name="PM2_5_24h" Type="varchar" MaxLength="5" />
+          <Property Name="AQI" Type="varchar" MaxLength="5" />
+          <Property Name="PrimaryPollutant" Type="varchar" MaxLength="255" />
+          <Property Name="Quality" Type="varchar" MaxLength="255" />
+          <Property Name="Measure" Type="varchar" MaxLength="255" />
+          <Property Name="Unheathful" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CityDayAQIPublishLive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimePoint" Type="datetime" Nullable="false" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityCode" Type="int" Nullable="false" />
+          <Property Name="SO2_24h" Type="varchar" MaxLength="5" />
+          <Property Name="CO_24h" Type="varchar" MaxLength="8" />
+          <Property Name="NO2_24h" Type="varchar" MaxLength="5" />
+          <Property Name="O3_8h_24h" Type="varchar" MaxLength="5" />
+          <Property Name="PM10_24h" Type="varchar" MaxLength="5" />
+          <Property Name="PM2_5_24h" Type="varchar" MaxLength="5" />
+          <Property Name="AQI" Type="varchar" MaxLength="5" />
+          <Property Name="PrimaryPollutant" Type="varchar" MaxLength="255" />
+          <Property Name="Quality" Type="varchar" MaxLength="255" />
+          <Property Name="Measure" Type="varchar" MaxLength="255" />
+          <Property Name="Unheathful" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityContainer Name="EnvPublishStdModelStoreContainer">
+          <EntitySet Name="AQIDataPublishHistory" EntityType="Self.AQIDataPublishHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AQIDataPublishLive" EntityType="Self.AQIDataPublishLive" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityAQIPublishHistory" EntityType="Self.CityAQIPublishHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityAQIPublishLive" EntityType="Self.CityAQIPublishLive" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityDayAQIPublishHistory" EntityType="Self.CityDayAQIPublishHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityDayAQIPublishLive" EntityType="Self.CityDayAQIPublishLive" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EnvPublishStdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AQIDataPublishHistory">
+          <Key>
+            <PropertyRef Name="TimePoint" />
+            <PropertyRef Name="StationCode" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimePoint" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PositionName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="StationCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CO" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CO_24h" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Latitude" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Longitude" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Measure" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NO2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NO2_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3_8h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3_8h_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM10" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM10_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM2_5" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM2_5_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SO2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SO2_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="AQI" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Quality" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Unheathful" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AQIDataPublishLive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimePoint" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PositionName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="StationCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CO" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CO_24h" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Latitude" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Longitude" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Measure" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NO2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NO2_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3_8h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3_8h_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM10" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM10_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM2_5" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM2_5_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SO2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SO2_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="AQI" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Quality" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Unheathful" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="IsPublish" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CityAQIPublishHistory">
+          <Key>
+            <PropertyRef Name="TimePoint" />
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimePoint" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityCode" Type="Int32" Nullable="false" />
+          <Property Name="CO" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="NO2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM10" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM2_5" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SO2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="AQI" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Quality" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Measure" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Unheathful" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CityAQIPublishLive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimePoint" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityCode" Type="Int32" Nullable="false" />
+          <Property Name="CO" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="NO2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM10" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM2_5" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SO2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="AQI" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Quality" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Measure" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Unheathful" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CityDayAQIPublishHistory">
+          <Key>
+            <PropertyRef Name="TimePoint" />
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimePoint" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityCode" Type="Int32" Nullable="false" />
+          <Property Name="SO2_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CO_24h" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="NO2_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3_8h_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM10_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM2_5_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="AQI" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Quality" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Measure" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Unheathful" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CityDayAQIPublishLive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimePoint" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityCode" Type="Int32" Nullable="false" />
+          <Property Name="SO2_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CO_24h" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="NO2_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="O3_8h_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM10_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PM2_5_24h" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="AQI" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryPollutant" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Quality" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Measure" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Unheathful" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="EnvPublishStdEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AQIDataPublishHistory" EntityType="Self.AQIDataPublishHistory" />
+          <EntitySet Name="AQIDataPublishLive" EntityType="Self.AQIDataPublishLive" />
+          <EntitySet Name="CityAQIPublishHistory" EntityType="Self.CityAQIPublishHistory" />
+          <EntitySet Name="CityAQIPublishLive" EntityType="Self.CityAQIPublishLive" />
+          <EntitySet Name="CityDayAQIPublishHistory" EntityType="Self.CityDayAQIPublishHistory" />
+          <EntitySet Name="CityDayAQIPublishLive" EntityType="Self.CityDayAQIPublishLive" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EnvPublishStdModelStoreContainer" CdmEntityContainer="EnvPublishStdEntities">
+          <EntitySetMapping Name="AQIDataPublishHistory">
+            <EntityTypeMapping TypeName="EnvPublishStdModel.AQIDataPublishHistory">
+              <MappingFragment StoreEntitySet="AQIDataPublishHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimePoint" ColumnName="TimePoint" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="StationCode" ColumnName="StationCode" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="CO_24h" ColumnName="CO_24h" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="NO2" ColumnName="NO2" />
+                <ScalarProperty Name="NO2_24h" ColumnName="NO2_24h" />
+                <ScalarProperty Name="O3" ColumnName="O3" />
+                <ScalarProperty Name="O3_24h" ColumnName="O3_24h" />
+                <ScalarProperty Name="O3_8h" ColumnName="O3_8h" />
+                <ScalarProperty Name="O3_8h_24h" ColumnName="O3_8h_24h" />
+                <ScalarProperty Name="PM10" ColumnName="PM10" />
+                <ScalarProperty Name="PM10_24h" ColumnName="PM10_24h" />
+                <ScalarProperty Name="PM2_5" ColumnName="PM2_5" />
+                <ScalarProperty Name="PM2_5_24h" ColumnName="PM2_5_24h" />
+                <ScalarProperty Name="SO2" ColumnName="SO2" />
+                <ScalarProperty Name="SO2_24h" ColumnName="SO2_24h" />
+                <ScalarProperty Name="AQI" ColumnName="AQI" />
+                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="Quality" ColumnName="Quality" />
+                <ScalarProperty Name="Unheathful" ColumnName="Unheathful" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AQIDataPublishLive">
+            <EntityTypeMapping TypeName="EnvPublishStdModel.AQIDataPublishLive">
+              <MappingFragment StoreEntitySet="AQIDataPublishLive">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimePoint" ColumnName="TimePoint" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="StationCode" ColumnName="StationCode" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="CO_24h" ColumnName="CO_24h" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="NO2" ColumnName="NO2" />
+                <ScalarProperty Name="NO2_24h" ColumnName="NO2_24h" />
+                <ScalarProperty Name="O3" ColumnName="O3" />
+                <ScalarProperty Name="O3_24h" ColumnName="O3_24h" />
+                <ScalarProperty Name="O3_8h" ColumnName="O3_8h" />
+                <ScalarProperty Name="O3_8h_24h" ColumnName="O3_8h_24h" />
+                <ScalarProperty Name="PM10" ColumnName="PM10" />
+                <ScalarProperty Name="PM10_24h" ColumnName="PM10_24h" />
+                <ScalarProperty Name="PM2_5" ColumnName="PM2_5" />
+                <ScalarProperty Name="PM2_5_24h" ColumnName="PM2_5_24h" />
+                <ScalarProperty Name="SO2" ColumnName="SO2" />
+                <ScalarProperty Name="SO2_24h" ColumnName="SO2_24h" />
+                <ScalarProperty Name="AQI" ColumnName="AQI" />
+                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="Quality" ColumnName="Quality" />
+                <ScalarProperty Name="Unheathful" ColumnName="Unheathful" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="IsPublish" ColumnName="IsPublish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityAQIPublishHistory">
+            <EntityTypeMapping TypeName="EnvPublishStdModel.CityAQIPublishHistory">
+              <MappingFragment StoreEntitySet="CityAQIPublishHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimePoint" ColumnName="TimePoint" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="NO2" ColumnName="NO2" />
+                <ScalarProperty Name="O3" ColumnName="O3" />
+                <ScalarProperty Name="PM10" ColumnName="PM10" />
+                <ScalarProperty Name="PM2_5" ColumnName="PM2_5" />
+                <ScalarProperty Name="SO2" ColumnName="SO2" />
+                <ScalarProperty Name="AQI" ColumnName="AQI" />
+                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="Quality" ColumnName="Quality" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="Unheathful" ColumnName="Unheathful" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityAQIPublishLive">
+            <EntityTypeMapping TypeName="EnvPublishStdModel.CityAQIPublishLive">
+              <MappingFragment StoreEntitySet="CityAQIPublishLive">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimePoint" ColumnName="TimePoint" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="NO2" ColumnName="NO2" />
+                <ScalarProperty Name="O3" ColumnName="O3" />
+                <ScalarProperty Name="PM10" ColumnName="PM10" />
+                <ScalarProperty Name="PM2_5" ColumnName="PM2_5" />
+                <ScalarProperty Name="SO2" ColumnName="SO2" />
+                <ScalarProperty Name="AQI" ColumnName="AQI" />
+                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="Quality" ColumnName="Quality" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="Unheathful" ColumnName="Unheathful" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityDayAQIPublishHistory">
+            <EntityTypeMapping TypeName="EnvPublishStdModel.CityDayAQIPublishHistory">
+              <MappingFragment StoreEntitySet="CityDayAQIPublishHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimePoint" ColumnName="TimePoint" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+                <ScalarProperty Name="SO2_24h" ColumnName="SO2_24h" />
+                <ScalarProperty Name="CO_24h" ColumnName="CO_24h" />
+                <ScalarProperty Name="NO2_24h" ColumnName="NO2_24h" />
+                <ScalarProperty Name="O3_8h_24h" ColumnName="O3_8h_24h" />
+                <ScalarProperty Name="PM10_24h" ColumnName="PM10_24h" />
+                <ScalarProperty Name="PM2_5_24h" ColumnName="PM2_5_24h" />
+                <ScalarProperty Name="AQI" ColumnName="AQI" />
+                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="Quality" ColumnName="Quality" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="Unheathful" ColumnName="Unheathful" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityDayAQIPublishLive">
+            <EntityTypeMapping TypeName="EnvPublishStdModel.CityDayAQIPublishLive">
+              <MappingFragment StoreEntitySet="CityDayAQIPublishLive">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimePoint" ColumnName="TimePoint" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+                <ScalarProperty Name="SO2_24h" ColumnName="SO2_24h" />
+                <ScalarProperty Name="CO_24h" ColumnName="CO_24h" />
+                <ScalarProperty Name="NO2_24h" ColumnName="NO2_24h" />
+                <ScalarProperty Name="O3_8h_24h" ColumnName="O3_8h_24h" />
+                <ScalarProperty Name="PM10_24h" ColumnName="PM10_24h" />
+                <ScalarProperty Name="PM2_5_24h" ColumnName="PM2_5_24h" />
+                <ScalarProperty Name="AQI" ColumnName="AQI" />
+                <ScalarProperty Name="PrimaryPollutant" ColumnName="PrimaryPollutant" />
+                <ScalarProperty Name="Quality" ColumnName="Quality" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="Unheathful" ColumnName="Unheathful" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -119,6 +119,90 @@
           <Property Name="StandardDays" Type="float" />
           <Property Name="PrimaryPollutant" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="SuncerePermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Controller" Type="nvarchar" MaxLength="255" />
+          <Property Name="Action" Type="nvarchar" MaxLength="255" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="255" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Static" Type="bit" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="int" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SuncereRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Static" Type="bit" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="int" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SuncereRolePermission">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SuncereUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="32" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Static" Type="bit" Nullable="false" />
+          <Property Name="LastLoginTime" Type="datetime" />
+          <Property Name="LastLoginIP" Type="nvarchar" MaxLength="255" />
+          <Property Name="IP" Type="nvarchar" MaxLength="255" />
+          <Property Name="EnableIPBinding" Type="bit" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatorUserId" Type="int" />
+          <Property Name="LastModificationTime" Type="datetime" />
+          <Property Name="LastModifierUserId" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SuncereUserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SyncDataQueue">
+          <Key>
+            <PropertyRef Name="Class" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="Class" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="LastTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK_AreaCity_Area">
           <End Role="Area" Type="Self.Area" Multiplicity="1" />
           <End Role="AreaCity" Type="Self.AreaCity" Multiplicity="*" />
@@ -143,6 +227,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SuncereRolePermission_SuncerePermission">
+          <End Role="SuncerePermission" Type="Self.SuncerePermission" Multiplicity="1" />
+          <End Role="SuncereRolePermission" Type="Self.SuncereRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SuncerePermission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuncereRolePermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuncereRolePermission_SuncereRole">
+          <End Role="SuncereRole" Type="Self.SuncereRole" Multiplicity="1" />
+          <End Role="SuncereRolePermission" Type="Self.SuncereRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SuncereRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuncereRolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuncereUserRole_SuncereRole">
+          <End Role="SuncereRole" Type="Self.SuncereRole" Multiplicity="1" />
+          <End Role="SuncereUserRole" Type="Self.SuncereUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SuncereRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuncereUserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuncereUserRole_SuncereUser">
+          <End Role="SuncereUser" Type="Self.SuncereUser" Multiplicity="1" />
+          <End Role="SuncereUserRole" Type="Self.SuncereUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SuncereUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuncereUserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SuncereDataCenterModelStoreContainer">
           <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AreaCity" EntityType="Self.AreaCity" Schema="dbo" store:Type="Tables" />
@@ -152,6 +284,12 @@
           <EntitySet Name="CityMonthlyAirQuality" EntityType="Self.CityMonthlyAirQuality" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CityQuarterlyAirQuality" EntityType="Self.CityQuarterlyAirQuality" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CityYearlyAirQuality" EntityType="Self.CityYearlyAirQuality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuncerePermission" EntityType="Self.SuncerePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuncereRole" EntityType="Self.SuncereRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuncereRolePermission" EntityType="Self.SuncereRolePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuncereUser" EntityType="Self.SuncereUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuncereUserRole" EntityType="Self.SuncereUserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SyncDataQueue" EntityType="Self.SyncDataQueue" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AreaCity_Area" Association="Self.FK_AreaCity_Area">
             <End Role="Area" EntitySet="Area" />
             <End Role="AreaCity" EntitySet="AreaCity" />
@@ -159,6 +297,22 @@
           <AssociationSet Name="FK_AreaCity_City" Association="Self.FK_AreaCity_City">
             <End Role="City" EntitySet="City" />
             <End Role="AreaCity" EntitySet="AreaCity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuncereRolePermission_SuncerePermission" Association="Self.FK_SuncereRolePermission_SuncerePermission">
+            <End Role="SuncerePermission" EntitySet="SuncerePermission" />
+            <End Role="SuncereRolePermission" EntitySet="SuncereRolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuncereRolePermission_SuncereRole" Association="Self.FK_SuncereRolePermission_SuncereRole">
+            <End Role="SuncereRole" EntitySet="SuncereRole" />
+            <End Role="SuncereRolePermission" EntitySet="SuncereRolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuncereUserRole_SuncereRole" Association="Self.FK_SuncereUserRole_SuncereRole">
+            <End Role="SuncereRole" EntitySet="SuncereRole" />
+            <End Role="SuncereUserRole" EntitySet="SuncereUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuncereUserRole_SuncereUser" Association="Self.FK_SuncereUserRole_SuncereUser">
+            <End Role="SuncereUser" EntitySet="SuncereUser" />
+            <End Role="SuncereUserRole" EntitySet="SuncereUserRole" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -177,6 +331,18 @@
             <End Role="Area" EntitySet="Area" />
             <End Role="City" EntitySet="City" />
           </AssociationSet>
+          <EntitySet Name="SuncerePermission" EntityType="SuncereDataCenterModel.SuncerePermission" />
+          <EntitySet Name="SuncereRole" EntityType="SuncereDataCenterModel.SuncereRole" />
+          <EntitySet Name="SuncereUser" EntityType="SuncereDataCenterModel.SuncereUser" />
+          <AssociationSet Name="SuncereRolePermission" Association="SuncereDataCenterModel.SuncereRolePermission">
+            <End Role="SuncerePermission" EntitySet="SuncerePermission" />
+            <End Role="SuncereRole" EntitySet="SuncereRole" />
+          </AssociationSet>
+          <AssociationSet Name="SuncereUserRole" Association="SuncereDataCenterModel.SuncereUserRole">
+            <End Role="SuncereRole" EntitySet="SuncereRole" />
+            <End Role="SuncereUser" EntitySet="SuncereUser" />
+          </AssociationSet>
+          <EntitySet Name="SyncDataQueue" EntityType="SuncereDataCenterModel.SyncDataQueue" />
         </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -290,6 +456,86 @@
           <End Type="SuncereDataCenterModel.Area" Role="Area" Multiplicity="*" />
           <End Type="SuncereDataCenterModel.City" Role="City" Multiplicity="*" />
         </Association>
+        <EntityType Name="SuncerePermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Controller" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="Icon" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Static" Type="Boolean" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int32" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SuncereRole" Relationship="SuncereDataCenterModel.SuncereRolePermission" FromRole="SuncerePermission" ToRole="SuncereRole" />
+        </EntityType>
+        <EntityType Name="SuncereRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Static" Type="Boolean" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int32" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SuncerePermission" Relationship="SuncereDataCenterModel.SuncereRolePermission" FromRole="SuncereRole" ToRole="SuncerePermission" />
+          <NavigationProperty Name="SuncereUser" Relationship="SuncereDataCenterModel.SuncereUserRole" FromRole="SuncereRole" ToRole="SuncereUser" />
+        </EntityType>
+        <EntityType Name="SuncereUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Static" Type="Boolean" Nullable="false" />
+          <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginIP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EnableIPBinding" Type="Boolean" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatorUserId" Type="Int32" />
+          <Property Name="LastModificationTime" Type="DateTime" Precision="3" />
+          <Property Name="LastModifierUserId" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SuncereRole" Relationship="SuncereDataCenterModel.SuncereUserRole" FromRole="SuncereUser" ToRole="SuncereRole" />
+        </EntityType>
+        <Association Name="SuncereRolePermission">
+          <End Type="SuncereDataCenterModel.SuncerePermission" Role="SuncerePermission" Multiplicity="*" />
+          <End Type="SuncereDataCenterModel.SuncereRole" Role="SuncereRole" Multiplicity="*" />
+        </Association>
+        <Association Name="SuncereUserRole">
+          <End Type="SuncereDataCenterModel.SuncereRole" Role="SuncereRole" Multiplicity="*" />
+          <End Type="SuncereDataCenterModel.SuncereUser" Role="SuncereUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="SyncDataQueue">
+          <Key>
+            <PropertyRef Name="Class" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="Class" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="LastTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -412,6 +658,93 @@
               <ScalarProperty Name="AreaCode" ColumnName="AreaCode" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="SuncerePermission">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.SuncerePermission">
+              <MappingFragment StoreEntitySet="SuncerePermission">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="Static" ColumnName="Static" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuncereRole">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.SuncereRole">
+              <MappingFragment StoreEntitySet="SuncereRole">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="Static" ColumnName="Static" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuncereUser">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.SuncereUser">
+              <MappingFragment StoreEntitySet="SuncereUser">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="LastModifierUserId" ColumnName="LastModifierUserId" />
+                <ScalarProperty Name="LastModificationTime" ColumnName="LastModificationTime" />
+                <ScalarProperty Name="CreatorUserId" ColumnName="CreatorUserId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="EnableIPBinding" ColumnName="EnableIPBinding" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="Static" ColumnName="Static" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SuncereRolePermission" TypeName="SuncereDataCenterModel.SuncereRolePermission" StoreEntitySet="SuncereRolePermission">
+            <EndProperty Name="SuncereRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="SuncerePermission">
+              <ScalarProperty Name="Id" ColumnName="PermissionId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SuncereUserRole" TypeName="SuncereDataCenterModel.SuncereUserRole" StoreEntitySet="SuncereUserRole">
+            <EndProperty Name="SuncereUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="SuncereRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="SyncDataQueue">
+            <EntityTypeMapping TypeName="SuncereDataCenterModel.SyncDataQueue">
+              <MappingFragment StoreEntitySet="SyncDataQueue">
+                <ScalarProperty Name="LastTime" ColumnName="LastTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

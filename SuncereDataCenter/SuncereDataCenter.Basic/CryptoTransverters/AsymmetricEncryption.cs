@@ -1,6 +1,7 @@
 ﻿using SuncereDataCenter.Basic.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -18,6 +19,7 @@ namespace SuncereDataCenter.Basic.CryptoTransverters
         static AsymmetricEncryption()
         {
             Default = new AsymmetricEncryption();
+            Default.FromXmlString(File.ReadAllText(ConfigurationManager.AppSettings["RSAKeyPath"]));
         }
 
         protected RSACryptoServiceProvider RSA { get; set; }
@@ -147,6 +149,27 @@ namespace SuncereDataCenter.Basic.CryptoTransverters
         public string DecryptToString(string inString)
         {
             return DecryptToString(inString, true);
+        }
+        #endregion
+        #region Key
+        public RSAParameters ExportParameters(bool includePrivateParameters)
+        {
+            return RSA.ExportParameters(includePrivateParameters);
+        }
+
+        public void ImportParameters(RSAParameters parameters)
+        {
+            RSA.ImportParameters(parameters);
+        }
+
+        public string ToXmlString(bool includePrivateParameters)
+        {
+            return RSA.ToXmlString(includePrivateParameters);
+        }
+
+        public void FromXmlString(string xmlString)
+        {
+            RSA.FromXmlString(xmlString);
         }
         #endregion
     }

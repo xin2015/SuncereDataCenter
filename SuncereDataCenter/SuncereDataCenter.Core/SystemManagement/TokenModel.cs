@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuncereDataCenter.Core.System
+namespace SuncereDataCenter.Core.SystemManagement
 {
     public class TokenModel
     {

@@ -15,11 +15,11 @@ namespace SuncereDataCenter.UnitTest.Basic
         public void Test()
         {
             Random rand = new Random();
-            byte[] buffer = new byte[10];
-            rand.NextBytes(buffer);
-            string base64String = buffer.ToBase64String();
-            string utf8String = buffer.ToUTF8String();
-            string x2String = buffer.ToFormatString("x2");
+            double a = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                a += Math.Round(rand.NextDouble(), 2);
+            }
         }
     }
 }

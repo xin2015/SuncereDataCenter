@@ -3,6 +3,8 @@ using SuncereDataCenter.Basic.CryptoTransverters;
 using SuncereDataCenter.Basic.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -14,7 +16,7 @@ namespace SuncereDataCenter.UnitTest.Basic
     public class AsymmetricEncryptionTest
     {
         [TestMethod]
-        public void CalculateAirQualityCompositeIndexTest()
+        public void Test()
         {
             Random rand = new Random();
             AsymmetricEncryption ae = new AsymmetricEncryption();
@@ -30,16 +32,22 @@ namespace SuncereDataCenter.UnitTest.Basic
         }
 
         [TestMethod]
-        public void RSACryptoServiceProviderTest()
+        public void AsymmetricEncryptionDefaultTest()
         {
             Random rand = new Random();
-            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider(2048);
-            for (int i = 213; i < 100000; i++)
-            {
-                byte[] inputBuffer = new byte[i];
-                rand.NextBytes(inputBuffer);
-                byte[] outputBuffer = RSA.Encrypt(inputBuffer, true);
-            }
+            byte[] data = new byte[10000];
+            rand.NextBytes(data);
+            string text = data.ToBase64String();
+            string ciphertext = AsymmetricEncryption.Default.EncryptToString(text);
+            string plaintext = AsymmetricEncryption.Default.DecryptToString(ciphertext);
+            Assert.AreEqual(text, plaintext);
+        }
+
+        [TestMethod]
+        public void PasswordEncrypt()
+        {
+            string password = "Suncere@123";
+            string ciphertext = SHA1Encryption.Default.EncryptPassword(password);
         }
     }
 }

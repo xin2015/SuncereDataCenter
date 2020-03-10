@@ -32,5 +32,9 @@ namespace SuncereDataCenter.Model
         public virtual DbSet<CityMonthlyAirQuality> CityMonthlyAirQuality { get; set; }
         public virtual DbSet<CityQuarterlyAirQuality> CityQuarterlyAirQuality { get; set; }
         public virtual DbSet<CityYearlyAirQuality> CityYearlyAirQuality { get; set; }
+        public virtual DbSet<SuncerePermission> SuncerePermission { get; set; }
+        public virtual DbSet<SuncereRole> SuncereRole { get; set; }
+        public virtual DbSet<SuncereUser> SuncereUser { get; set; }
+        public virtual DbSet<SyncDataQueue> SyncDataQueue { get; set; }
     }
 }

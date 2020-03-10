@@ -1,7 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using SuncereDataCenter.Basic.CryptoTransverters;
-using SuncereDataCenter.Core.System;
+using SuncereDataCenter.Core.SystemManagement;
+using SuncereDataCenter.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,19 @@ namespace SuncereDataCenter.UnitTest.Core
         [TestMethod]
         public void ValidateTest()
         {
+            SuncereDataCenterEntities entities = new SuncereDataCenterEntities();
+            TokenValidator validator = new TokenValidator(entities);
             TokenModel tm = new TokenModel("admin", "123456");
             string token = AsymmetricEncryption.Default.EncryptToString(JsonConvert.SerializeObject(tm));
-            bool result = TokenValidator.Validate(token, "", "");
+            bool result = validator.Validate(token, "AirQuality", null);
             Assert.IsFalse(result);
-            tm = new TokenModel("admin", "abc@123");
+            tm = new TokenModel("admin", "Suncere@123");
             token = AsymmetricEncryption.Default.EncryptToString(JsonConvert.SerializeObject(tm));
-            result = TokenValidator.Validate(token, "", "");
+            result = validator.Validate(token, "AirQuality", null);
             Assert.IsTrue(result);
-            result = TokenValidator.Validate("123456", "", "");
+            result = validator.Validate(token, "AirQuality", "");
+            Assert.IsFalse(result);
+            result = validator.Validate("123456", "", "");
             Assert.IsFalse(result);
         }
     }

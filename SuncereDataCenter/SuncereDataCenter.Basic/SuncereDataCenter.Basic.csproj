@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,6 +46,7 @@
     <Compile Include="CryptoTransverters\AsymmetricEncryption.cs" />
     <Compile Include="CryptoTransverters\IDecrypt.cs" />
     <Compile Include="CryptoTransverters\IEncrypt.cs" />
+    <Compile Include="CryptoTransverters\SHA1Encryption.cs" />
     <Compile Include="Extensions\BytesExtension.cs" />
     <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />

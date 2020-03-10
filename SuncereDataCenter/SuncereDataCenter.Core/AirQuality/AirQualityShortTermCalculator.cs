@@ -9,7 +9,7 @@ namespace SuncereDataCenter.Core.AirQuality
 {
     public class AirQualityShortTermCalculator
     {
-        public void CalculatorRank(IEnumerable<IAirQualityShortTerm> data)
+        public void CalculateRank(IEnumerable<IAirQualityShortTerm> data)
         {
             RankCalculator rankCalculator = new RankCalculator();
             rankCalculator.Calculate<IAirQualityShortTerm>(data, o => o.SO2, (o, rank) => { o.SO2R = rank; });

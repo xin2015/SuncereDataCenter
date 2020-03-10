@@ -13,6 +13,12 @@
         <EntityTypeShape EntityType="SuncereDataCenterModel.CityQuarterlyAirQuality" Width="1.5" PointX="2.75" PointY="7.75" />
         <EntityTypeShape EntityType="SuncereDataCenterModel.CityYearlyAirQuality" Width="1.5" PointX="7.75" PointY="4.75" />
         <AssociationConnector Association="SuncereDataCenterModel.AreaCity" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.SuncerePermission" Width="1.5" PointX="5.375" PointY="9.25" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.SuncereRole" Width="1.5" PointX="7.625" PointY="9.75" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.SuncereUser" Width="1.5" PointX="9.875" PointY="9" />
+        <AssociationConnector Association="SuncereDataCenterModel.SuncereRolePermission" />
+        <AssociationConnector Association="SuncereDataCenterModel.SuncereUserRole" />
+        <EntityTypeShape EntityType="SuncereDataCenterModel.SyncDataQueue" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

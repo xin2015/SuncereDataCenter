@@ -10,7 +10,7 @@ namespace SuncereDataCenter.Core.AirQuality
 {
     public class AirQualityLongTermCalculator
     {
-        public void CalculatorRank(IEnumerable<IAirQualityLongTerm> data)
+        public void CalculateRank(IEnumerable<IAirQualityLongTerm> data)
         {
             RankCalculator rankCalculator = new RankCalculator();
             rankCalculator.Calculate<IAirQualityLongTerm>(data, o => o.SO2, (o, rank) => { o.SO2R = rank; });
