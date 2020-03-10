@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.API", "Su
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.Service", "SuncereDataCenter.Service\SuncereDataCenter.Service.csproj", "{7C647704-3B90-449D-ACD6-3EA802AB3DC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.WindowsForms", "SuncereDataCenter.WindowsForms\SuncereDataCenter.WindowsForms.csproj", "{A3D0E270-BBF3-4469-A52F-5D7853F96D94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{7C647704-3B90-449D-ACD6-3EA802AB3DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C647704-3B90-449D-ACD6-3EA802AB3DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C647704-3B90-449D-ACD6-3EA802AB3DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3D0E270-BBF3-4469-A52F-5D7853F96D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3D0E270-BBF3-4469-A52F-5D7853F96D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3D0E270-BBF3-4469-A52F-5D7853F96D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3D0E270-BBF3-4469-A52F-5D7853F96D94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
