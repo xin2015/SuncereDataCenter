@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
@@ -82,11 +79,14 @@
     <Compile Include="AirQuality\IAirQualityPollutantIndex.cs" />
     <Compile Include="AirQuality\IAirQualityShortTerm.cs" />
     <Compile Include="AirQuality\IAirQualityStatistics.cs" />
-    <Compile Include="Connected Services\CNEMCService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
+    <Compile Include="Extensions\AirQualityLongTermExtension.cs" />
+    <Compile Include="Extensions\AirQualityShortTermExtension.cs" />
+    <Compile Include="Extensions\CityDailyAirQualityExtension.cs" />
+    <Compile Include="Extensions\CityHourlyAirQualityExtension.cs" />
+    <Compile Include="Extensions\CityMonthlyAirQualityExtension.cs" />
+    <Compile Include="Extensions\CityQuarterlyAirQualityExtension.cs" />
+    <Compile Include="Extensions\CityYearlyAirQualityExtension.cs" />
+    <Compile Include="Helper\CommonHelper.cs" />
     <Compile Include="Model\AirQualityLongTerm.cs" />
     <Compile Include="Model\AirQualityShortTerm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,95 +111,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Connected Services\CNEMCService\CNEMCService.wsdl" />
-    <None Include="Connected Services\CNEMCService\CNEMCService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\CNEMCService\CNEMCService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\CNEMCService\CNEMCService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\CNEMCService\CNEMCService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\CNEMCService\CNEMCService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.Air_Cityday_AQI_App.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.Air_CityDay_AQI_NonRule_Max_Src.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.Air_CityDay_AQI_NonRule_Src.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.Air_Cityday_AQI_Src.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.Air_CityHour_AQI_App.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.Air_CityHour_AQI_Src.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.Air_day_AQI_App.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.Air_day_AQI_Src.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.AQIDataPublishHistory.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.AQIDataPublishLive.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.CityAQIPublishHistory.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.CityAQIPublishLive.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.CityDayAQIPublishHistory.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.CityDayAQIPublishLive.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.LoginUser.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.VDataCenterHourDataApp.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CNEMCService\SuncereDataCenter.Core.CNEMCService.VDataCenterHourDataSrc.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\CNEMCService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\CNEMCService\CNEMCService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\CNEMCService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\CNEMCService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\CNEMCService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

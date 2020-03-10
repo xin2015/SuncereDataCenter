@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using AutoMapper.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SuncereDataCenter.Core.AirQuality;
 using SuncereDataCenter.Core.Model;
 using SuncereDataCenter.Core.Sync;
@@ -19,13 +17,6 @@ namespace SuncereDataCenter.UnitTest.Core
         [TestMethod]
         public void Test()
         {
-            MapperConfigurationExpression config = new MapperConfigurationExpression();
-            config.CreateMap<CityDailyAirQuality, AirQualityShortTerm>();
-            config.CreateMap<AirQualityLongTerm, CityMonthlyAirQuality>();
-            config.CreateMap<AirQualityLongTerm, CityQuarterlyAirQuality>();
-            config.CreateMap<AirQualityLongTerm, CityYearlyAirQuality>();
-            Mapper.Initialize(config);
-
             using (SuncereDataCenterEntities entities = new SuncereDataCenterEntities())
             {
                 CityMonthlyAirQualitySync monthlySync = new CityMonthlyAirQualitySync(entities);

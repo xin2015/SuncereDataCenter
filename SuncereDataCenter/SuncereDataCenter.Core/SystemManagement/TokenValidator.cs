@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Common.Logging;
+using Newtonsoft.Json;
 using SuncereDataCenter.Basic.CryptoTransverters;
 using SuncereDataCenter.Model;
 using System;
@@ -11,10 +12,12 @@ namespace SuncereDataCenter.Core.SystemManagement
 {
     public class TokenValidator
     {
+        private ILog logger;
         public SuncereDataCenterEntities Entities { get; set; }
 
         public TokenValidator(SuncereDataCenterEntities entities)
         {
+            logger = LogManager.GetLogger<TokenValidator>();
             Entities = entities;
         }
 
@@ -45,6 +48,7 @@ namespace SuncereDataCenter.Core.SystemManagement
             }
             catch (Exception e)
             {
+                logger.Error(string.Format("验证出错，token={0}&controller={1}&action={2}", token, controller, action), e);
                 result = false;
             }
             return result;

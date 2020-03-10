@@ -1,3 +1,5 @@
+using SuncereDataCenter.Core.Model;
+using SuncereDataCenter.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,11 @@ namespace SuncereDataCenter.API
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        protected void Initialize()
+        {
+
         }
     }
 }

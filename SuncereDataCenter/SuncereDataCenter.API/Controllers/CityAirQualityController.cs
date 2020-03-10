@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using SuncereDataCenter.Basic.Calculators;
+﻿using SuncereDataCenter.Basic.Calculators;
 using SuncereDataCenter.Core.AirQuality;
+using SuncereDataCenter.Core.Extensions;
 using SuncereDataCenter.Core.Model;
 using SuncereDataCenter.Core.SystemManagement;
 using SuncereDataCenter.Model;
@@ -43,9 +43,7 @@ namespace SuncereDataCenter.API.Controllers
                         query = query.Where(o => cityCodes.Contains(o.Code));
                     }
                 }
-                List<CityHourlyAirQuality> source = query.ToList();
-                Mapper.Initialize(o => o.CreateMap<CityHourlyAirQuality, AirQualityShortTerm>());
-                List<AirQualityShortTerm> list = Mapper.Map<List<AirQualityShortTerm>>(source);
+                List<AirQualityShortTerm> list = query.ToList().Select(o => o.ToAirQualityShortTerm()).ToList();
                 AirQualityShortTermCalculator calculator = new AirQualityShortTermCalculator();
                 calculator.CalculateRank(list);
                 return list;
@@ -74,9 +72,7 @@ namespace SuncereDataCenter.API.Controllers
                         query = query.Where(o => cityCodes.Contains(o.Code));
                     }
                 }
-                List<CityDailyAirQuality> source = query.ToList();
-                Mapper.Initialize(o => o.CreateMap<CityDailyAirQuality, AirQualityShortTerm>());
-                List<AirQualityShortTerm> list = Mapper.Map<List<AirQualityShortTerm>>(source);
+                List<AirQualityShortTerm> list = query.ToList().Select(o => o.ToAirQualityShortTerm()).ToList();
                 AirQualityShortTermCalculator calculator = new AirQualityShortTermCalculator();
                 calculator.CalculateRank(list);
                 return list;
@@ -105,9 +101,7 @@ namespace SuncereDataCenter.API.Controllers
                         query = query.Where(o => cityCodes.Contains(o.Code));
                     }
                 }
-                List<CityMonthlyAirQuality> source = query.ToList();
-                Mapper.Initialize(o => o.CreateMap<CityMonthlyAirQuality, AirQualityLongTerm>());
-                List<AirQualityLongTerm> list = Mapper.Map<List<AirQualityLongTerm>>(source);
+                List<AirQualityLongTerm> list = query.ToList().Select(o => o.ToAirQualityLongTerm()).ToList();
                 AirQualityLongTermCalculator calculator = new AirQualityLongTermCalculator();
                 calculator.CalculateRank(list);
                 return list;
@@ -136,9 +130,7 @@ namespace SuncereDataCenter.API.Controllers
                         query = query.Where(o => cityCodes.Contains(o.Code));
                     }
                 }
-                List<CityQuarterlyAirQuality> source = query.ToList();
-                Mapper.Initialize(o => o.CreateMap<CityMonthlyAirQuality, AirQualityLongTerm>());
-                List<AirQualityLongTerm> list = Mapper.Map<List<AirQualityLongTerm>>(source);
+                List<AirQualityLongTerm> list = query.ToList().Select(o => o.ToAirQualityLongTerm()).ToList();
                 AirQualityLongTermCalculator calculator = new AirQualityLongTermCalculator();
                 calculator.CalculateRank(list);
                 return list;
@@ -167,9 +159,7 @@ namespace SuncereDataCenter.API.Controllers
                         query = query.Where(o => cityCodes.Contains(o.Code));
                     }
                 }
-                List<CityYearlyAirQuality> source = query.ToList();
-                Mapper.Initialize(o => o.CreateMap<CityMonthlyAirQuality, AirQualityLongTerm>());
-                List<AirQualityLongTerm> list = Mapper.Map<List<AirQualityLongTerm>>(source);
+                List<AirQualityLongTerm> list = query.ToList().Select(o => o.ToAirQualityLongTerm()).ToList();
                 AirQualityLongTermCalculator calculator = new AirQualityLongTermCalculator();
                 calculator.CalculateRank(list);
                 return list;
@@ -198,12 +188,10 @@ namespace SuncereDataCenter.API.Controllers
                         query = query.Where(o => cityCodes.Contains(o.Code));
                     }
                 }
-                List<CityDailyAirQuality> source = query.ToList();
-                Mapper.Initialize(o => o.CreateMap<CityDailyAirQuality, AirQualityShortTerm>());
-                List<AirQualityShortTerm> airQualityShortTermList = Mapper.Map<List<AirQualityShortTerm>>(source);
+                List<AirQualityShortTerm> source = query.ToList().Select(o => o.ToAirQualityShortTerm()).ToList();
                 AirQualityLongTermCalculator calculator = new AirQualityLongTermCalculator();
                 List<AirQualityLongTerm> list = new List<AirQualityLongTerm>();
-                foreach (var cityGroup in airQualityShortTermList.GroupBy(o => o.Code))
+                foreach (var cityGroup in source.GroupBy(o => o.Code))
                 {
                     AirQualityShortTerm first = cityGroup.First();
                     AirQualityLongTerm item = new AirQualityLongTerm()

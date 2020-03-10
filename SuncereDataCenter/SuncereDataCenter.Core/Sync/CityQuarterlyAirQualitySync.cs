@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using SuncereDataCenter.Core.AirQuality;
+﻿using SuncereDataCenter.Core.AirQuality;
+using SuncereDataCenter.Core.Extensions;
 using SuncereDataCenter.Core.Model;
 using SuncereDataCenter.Model;
 using System;
@@ -26,7 +26,7 @@ namespace SuncereDataCenter.Core.Sync
             List<CityDailyAirQuality> source = Entities.CityDailyAirQuality.Where(o => o.Time >= startTime && o.Time <= endTime).ToList();
             if (source.Any())
             {
-                List<AirQualityShortTerm> airQualityShortTermList = Mapper.Map<List<AirQualityShortTerm>>(source);
+                List<AirQualityShortTerm> airQualityShortTermList = source.Select(o => o.ToAirQualityShortTerm()).ToList();
                 List<CityQuarterlyAirQuality> list = new List<CityQuarterlyAirQuality>();
                 AirQualityLongTermCalculator calculator = new AirQualityLongTermCalculator();
                 foreach (var cityGroup in airQualityShortTermList.GroupBy(o => o.Code))
@@ -39,7 +39,7 @@ namespace SuncereDataCenter.Core.Sync
                         Name = first.Name
                     };
                     calculator.Calculate(cityGroup, item);
-                    list.Add(Mapper.Map<CityQuarterlyAirQuality>(item));
+                    list.Add(item.ToCityQuarterlyAirQuality());
                 }
                 IQueryable<CityQuarterlyAirQuality> oldList = Entities.CityQuarterlyAirQuality.Where(o => o.Time == startTime);
                 Entities.CityQuarterlyAirQuality.RemoveRange(oldList);
