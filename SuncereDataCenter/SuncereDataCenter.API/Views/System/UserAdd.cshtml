@@ -1,0 +1,126 @@
+﻿@model SuncereDataCenter.Model.SuncereUser
+
+@{
+    ViewBag.Title = "用户新增";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2" for="UserName">账号</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="DisplayName">名称</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="UrlFormat">Url格式</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UrlFormat, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UrlFormat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="FileType">文件扩展名</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FileType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FileType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Forecast">种类</label>
+            <div class="col-md-10">
+                <label class="radio-inline">
+                    <input type="radio" name="Forecast" value="true" checked> 预报
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="Forecast" value="false"> 实况
+                </label>
+                @Html.ValidationMessageFor(model => model.Forecast, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="DateFormat">日期格式</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateFormat, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateFormat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="TimeFormat">时间格式</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeFormat, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeFormat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="FetchStartTimeInterval">开始抓取时间间隔</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FetchStartTimeInterval, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FetchStartTimeInterval, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="FetchEndTimeInterval">结束抓取时间间隔</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FetchEndTimeInterval, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FetchEndTimeInterval, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="TimeStampInterval">时间标记间隔</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeStampInterval, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeStampInterval, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="TimeStampMultiple">时间标记倍数</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeStampMultiple, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeStampMultiple, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="TimeStampFormat">时间标记格式</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeStampFormat, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeStampFormat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ForecastFormat">预报时间格式</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ForecastFormat, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ForecastFormat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ParameterNames">参数</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ParameterNames, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ParameterNames, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="保存" class="btn btn-primary" />
+                @Html.ActionLink("返回", "FileFetchConfigList", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

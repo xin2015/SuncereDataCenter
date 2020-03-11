@@ -153,6 +153,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CityAirQualityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SuncereUsersController.cs" />
+    <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,6 +200,16 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\SuncereUsers\Create.cshtml" />
+    <Content Include="Views\SuncereUsers\Delete.cshtml" />
+    <Content Include="Views\SuncereUsers\Details.cshtml" />
+    <Content Include="Views\SuncereUsers\Edit.cshtml" />
+    <Content Include="Views\SuncereUsers\Index.cshtml" />
+    <Content Include="Views\System\UserList.cshtml" />
+    <Content Include="Views\System\UserAdd.cshtml" />
+    <Content Include="Views\System\PermissionList.cshtml" />
+    <Content Include="Views\Home\SignIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -35,5 +35,15 @@ namespace SuncereDataCenter.API.Controllers
             TokenModel tm = new TokenModel("admin", "Suncere@123");
             return AsymmetricEncryption.Default.EncryptToString(JsonConvert.SerializeObject(tm));
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult SignIn()
+        {
+            return View();
+        }
     }
 }
