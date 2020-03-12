@@ -1,0 +1,87 @@
+﻿@model SuncereDataCenter.Model.SuncereUser
+
+@{
+    ViewBag.Title = "UserDetails";
+}
+
+<h3 class="page-header">详情</h3>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-md-2" for="UserName">账号</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.UserName)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="DisplayName">名称</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.DisplayName)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="EmailAddress">Email</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.EmailAddress)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="PhoneNumber">手机</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.PhoneNumber)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Status">状态</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@(Model.Status ? "启用" : "关闭")</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="LastLoginTime">最新登录时间</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.LastLoginTime)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="LastLoginIP">最新登录IP</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.LastLoginIP)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="IP">IP</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.IP)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="EnableIPBinding">绑定IP</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@(Model.EnableIPBinding ? "启用" : "关闭")</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Remark">备注</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Remark)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="CreationTime">创建时间</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.CreationTime)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="LastModificationTime">最新修改时间</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.LastModificationTime)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("编辑", "UserEdit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("返回", "UserList", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>

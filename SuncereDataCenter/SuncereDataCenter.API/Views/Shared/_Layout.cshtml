@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
@@ -24,6 +24,14 @@
                     <li>@Html.ActionLink("主页", "Index", "Home")</li>
                     <li>@Html.ActionLink("关于", "About", "Home")</li>
                     <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">系统管理 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("用户管理", "UserList", "System")</li>
+                            <li>@Html.ActionLink("角色管理", "RoleList", "System")</li>
+                            <li>@Html.ActionLink("权限管理", "PermissionList", "System")</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

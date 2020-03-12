@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "UserRoleAdd";
+    int userId = ViewBag.UserId;
+    SelectList selectList = ViewBag.RoleSelectList;
+}
+
+<h3 class="page-header">新增</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("userId", userId)
+        <div class="form-group">
+            <label class="control-label col-md-2" for="roleId">角色</label>
+            <div class="col-md-10">
+                @Html.DropDownList("roleId", selectList, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="保存" class="btn btn-primary" />
+                @Html.ActionLink("返回", "UserRoleList", new { userId = userId }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
