@@ -1,0 +1,82 @@
+﻿@model SuncereDataCenter.Model.SuncerePermission
+
+@{
+    ViewBag.Title = "PermissionDetails";
+    List<SuncereDataCenter.Model.SuncerePermission> parentPermissionList = ViewBag.ParentPermissionList;
+}
+
+<h3 class="page-header">详情</h3>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Name">名称</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Name)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Type">类型</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@(Model.Type == 1 ? "菜单" : "页面")</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Controller">控制器</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Controller)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Action">方法</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Action)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Order">排序</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Order)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="ParentId">父权限</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@parentPermissionList.First(o => o.Id == Model.ParentId).Name</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Icon">图标</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Icon)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Status">状态</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@(Model.Status ? "启用" : "关闭")</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Remark">备注</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Remark)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="CreationTime">创建时间</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.CreationTime)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="LastModificationTime">最新修改时间</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.LastModificationTime)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("编辑", "PermissionEdit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("返回", "PermissionList", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>

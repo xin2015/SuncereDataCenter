@@ -60,7 +60,7 @@ namespace SuncereDataCenter.API.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("UserExist", "账号已存在！");
+                    ModelState.AddModelError("UserExist", "用户已存在！");
                 }
             }
 
@@ -343,10 +343,23 @@ namespace SuncereDataCenter.API.Controllers
         #region Permission
         public ActionResult PermissionList()
         {
-            List<SuncerePermission> parentPermissionList = entities.SuncerePermission.Where(o => o.Type == 1).ToList();
-            SelectList selectList = new SelectList(parentPermissionList, "Id", "Name");
+            SelectList selectList = GetParentPermissionSelectList(null);
             ViewBag.ParentPermissionSelectList = selectList;
             return View(entities.SuncerePermission.ToList());
+        }
+
+        private SelectList GetParentPermissionSelectList(int? parentId)
+        {
+            List<SuncerePermission> parentPermissionList = GetParentPermissionList();
+            SelectList selectList = new SelectList(parentPermissionList, "Id", "Name", parentId);
+            return selectList;
+        }
+
+        private List<SuncerePermission> GetParentPermissionList()
+        {
+            List<SuncerePermission> parentPermissionList = entities.SuncerePermission.Where(o => o.Type == 1).ToList();
+            parentPermissionList.Insert(0, new SuncerePermission() { Id = 0, Name = "无" });
+            return parentPermissionList;
         }
 
         [HttpPost]
@@ -363,10 +376,122 @@ namespace SuncereDataCenter.API.Controllers
                 query = query.Where(o => o.ParentId == parentId.Value);
             }
             ViewBag.Keyword = keyword;
-            List<SuncerePermission> parentPermissionList = entities.SuncerePermission.Where(o => o.Type == 1).ToList();
-            SelectList selectList = new SelectList(parentPermissionList, "Id", "Name", parentId);
+            SelectList selectList = GetParentPermissionSelectList(null);
             ViewBag.ParentPermissionSelectList = selectList;
             return View(query.ToList());
+        }
+
+        public ActionResult PermissionAdd()
+        {
+            SelectList selectList = GetParentPermissionSelectList(null);
+            ViewBag.ParentPermissionSelectList = selectList;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PermissionAdd([Bind(Include = "Name,Type,Controller,Action,Order,ParentId,Icon,Remark")] SuncerePermission permission)
+        {
+            if (ModelState.IsValid)
+            {
+                SuncerePermission item = entities.SuncerePermission.FirstOrDefault(o => o.Name == permission.Name);
+                if (item == null)
+                {
+                    permission.Status = true;
+                    permission.CreationTime = DateTime.Now;
+                    entities.SuncerePermission.Add(permission);
+                    entities.SaveChanges();
+                    return RedirectToAction("PermissionList");
+                }
+                else
+                {
+                    ModelState.AddModelError("PermissionExist", "权限已存在！");
+                }
+            }
+            SelectList selectList = GetParentPermissionSelectList(null);
+            ViewBag.ParentPermissionSelectList = selectList;
+            return View(permission);
+        }
+
+        public ActionResult PermissionDetails(int id)
+        {
+            SuncerePermission permission = entities.SuncerePermission.Find(id);
+            if (permission == null)
+            {
+                return HttpNotFound();
+            }
+            List<SuncerePermission> parentPermissionList = GetParentPermissionList();
+            ViewBag.ParentPermissionList = parentPermissionList;
+            return View(permission);
+        }
+
+        public ActionResult PermissionEdit(int id)
+        {
+            SuncerePermission permission = entities.SuncerePermission.Find(id);
+            if (permission == null)
+            {
+                return HttpNotFound();
+            }
+            SelectList selectList = GetParentPermissionSelectList(permission.ParentId);
+            ViewBag.ParentPermissionSelectList = selectList;
+            return View(permission);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PermissionEdit([Bind(Include = "Id,Type,Controller,Action,Order,ParentId,Icon,Status,Remark")] SuncerePermission permission)
+        {
+            if (ModelState.IsValid)
+            {
+                SuncerePermission item = entities.SuncerePermission.Find(permission.Id);
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    item.Type = permission.Type;
+                    item.Controller = permission.Controller;
+                    item.Action = permission.Action;
+                    item.Order = permission.Order;
+                    item.ParentId = permission.ParentId;
+                    item.Icon = permission.Icon;
+                    item.Status = permission.Status;
+                    item.Remark = permission.Remark;
+                    item.LastModificationTime = DateTime.Now;
+                    entities.SaveChanges();
+                    return RedirectToAction("PermissionList");
+                }
+            }
+            SelectList selectList = GetParentPermissionSelectList(permission.ParentId);
+            ViewBag.ParentPermissionSelectList = selectList;
+            return View(permission);
+        }
+
+        public ActionResult PermissionDelete(int id)
+        {
+            SuncerePermission permission = entities.SuncerePermission.Find(id);
+            if (permission == null)
+            {
+                return HttpNotFound();
+            }
+            List<SuncerePermission> parentPermissionList = entities.SuncerePermission.Where(o => o.Type == 1).ToList();
+            ViewBag.ParentPermissionList = parentPermissionList;
+            return View(permission);
+        }
+
+        [HttpPost, ActionName("PermissionDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult PermissionDeleteConfirmed(int id)
+        {
+            SuncerePermission permission = entities.SuncerePermission.Find(id);
+            if (permission == null)
+            {
+                return HttpNotFound();
+            }
+            entities.SuncerePermission.Remove(permission);
+            entities.SaveChanges();
+            return RedirectToAction("PermissionList");
         }
         #endregion
 
