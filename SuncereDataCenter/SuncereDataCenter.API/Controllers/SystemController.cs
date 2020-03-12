@@ -303,6 +303,41 @@ namespace SuncereDataCenter.API.Controllers
 
             return View(role);
         }
+
+        public ActionResult RoleDelete(int id)
+        {
+            SuncereRole role = entities.SuncereRole.Find(id);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            return View(role);
+        }
+
+        [HttpPost, ActionName("RoleDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult RoleDeleteConfirmed(int id)
+        {
+            SuncereRole role = entities.SuncereRole.Find(id);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            entities.SuncereRole.Remove(role);
+            entities.SaveChanges();
+            return RedirectToAction("RoleList");
+        }
+
+        public ActionResult RolePermissionList(int roleId)
+        {
+            SuncereRole role = entities.SuncereRole.Find(roleId);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.RoleId = roleId;
+            return View(role.SuncerePermission.ToList());
+        }
         #endregion
 
         #region Permission

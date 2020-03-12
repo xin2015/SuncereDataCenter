@@ -44,7 +44,7 @@
                     @Html.ActionLink("详情", "RoleDetails", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
                     @Html.ActionLink("编辑", "RoleEdit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" + (item.Static ? " disabled" : "") })
                     @Html.ActionLink("删除", "RoleDelete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" + (item.Static ? " disabled" : "") })
-                    @Html.ActionLink("权限", "RolePermissions", new { id = item.Id }, new { @class = "btn btn-default btn-sm" })
+                    @Html.ActionLink("权限", "RolePermissionList", new { roleId = item.Id }, new { @class = "btn btn-default btn-sm" })
                 </td>
             </tr>
         }

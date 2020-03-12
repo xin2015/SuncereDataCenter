@@ -214,6 +214,8 @@
     <Content Include="Views\System\RoleAdd.cshtml" />
     <Content Include="Views\System\RoleDetails.cshtml" />
     <Content Include="Views\System\RoleEdit.cshtml" />
+    <Content Include="Views\System\RoleDelete.cshtml" />
+    <Content Include="Views\System\RolePermissionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
