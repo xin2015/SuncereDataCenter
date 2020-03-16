@@ -46,7 +46,7 @@ namespace SuncereDataCenter.WindowsForms
             {
                 GetTime();
                 string syncClass = comboBox1.SelectedItem as string;
-                using (SuncereDataCenterEntities entities = new SuncereDataCenterEntities())
+                using (SuncereDataCenterModel entities = new SuncereDataCenterModel())
                 {
                     Type[] types = Assembly.GetAssembly(typeof(ISync)).GetTypes();
                     Type syncType = types.FirstOrDefault(o => o.Name == syncClass);
@@ -67,7 +67,7 @@ namespace SuncereDataCenter.WindowsForms
             try
             {
                 string syncClass = comboBox1.SelectedItem as string;
-                using (SuncereDataCenterEntities entities = new SuncereDataCenterEntities())
+                using (SuncereDataCenterModel entities = new SuncereDataCenterModel())
                 {
                     Type[] types = Assembly.GetAssembly(typeof(ISync)).GetTypes();
                     Type syncType = types.FirstOrDefault(o => o.Name == syncClass);

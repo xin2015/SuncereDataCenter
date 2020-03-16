@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<SuncereDataCenter.Model.SuncereRole>
 @{
-    ViewBag.Title = "UserRoles";
+    ViewBag.Title = "用户角色管理";
 }
 
 <h3 class="page-header">表格</h3>
@@ -31,7 +31,7 @@
                     @Html.DisplayFor(modelItem => item.Remark)
                 </td>
                 <td>
-                    @Html.ActionLink("删除", "UserRoleDelete", new { userId = ViewBag.UserId, id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                    @Html.ActionLink("删除", "UserRoleDelete", new { userId = ViewBag.UserId, roleId = item.Id }, new { @class = "btn btn-danger btn-sm" })
                 </td>
             </tr>
         }

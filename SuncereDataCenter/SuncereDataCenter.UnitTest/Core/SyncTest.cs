@@ -17,7 +17,7 @@ namespace SuncereDataCenter.UnitTest.Core
         [TestMethod]
         public void Test()
         {
-            using (SuncereDataCenterEntities entities = new SuncereDataCenterEntities())
+            using (SuncereDataCenterModel entities = new SuncereDataCenterModel())
             {
                 CityMonthlyAirQualitySync monthlySync = new CityMonthlyAirQualitySync(entities);
                 CityQuarterlyAirQualitySync quarterlySync = new CityQuarterlyAirQualitySync(entities);

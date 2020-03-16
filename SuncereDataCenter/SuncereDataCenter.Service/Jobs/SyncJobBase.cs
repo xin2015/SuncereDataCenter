@@ -27,7 +27,7 @@ namespace SuncereDataCenter.Service.Jobs
             {
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
-                using (SuncereDataCenterEntities entities = new SuncereDataCenterEntities())
+                using (SuncereDataCenterModel entities = new SuncereDataCenterModel())
                 {
                     ISync sync = (ISync)Activator.CreateInstance(typeof(TSync), entities);
                     sync.CheckQueue();

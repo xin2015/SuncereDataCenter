@@ -12,7 +12,7 @@ namespace SuncereDataCenter.Core.Sync
 {
     public class CityMonthlyAirQualitySync : SyncBase<CityMonthlyAirQuality>
     {
-        public CityMonthlyAirQualitySync(SuncereDataCenterEntities entities) : base(entities)
+        public CityMonthlyAirQualitySync(SuncereDataCenterModel model) : base(model)
         {
             Interval = TimeSpan.FromDays(30);
             StartTimeDeviation = TimeSpan.FromDays(1);
@@ -23,7 +23,7 @@ namespace SuncereDataCenter.Core.Sync
         {
             DateTime startTime = new DateTime(queue.Time.Year, queue.Time.Month, 1);
             DateTime endTime = startTime.AddMonths(1).AddDays(-1);
-            List<CityDailyAirQuality> source = Entities.CityDailyAirQuality.Where(o => o.Time >= startTime && o.Time <= endTime).ToList();
+            List<CityDailyAirQuality> source = Model.CityDailyAirQuality.Where(o => o.Time >= startTime && o.Time <= endTime).ToList();
             if (source.Any())
             {
                 List<AirQualityShortTerm> airQualityShortTermList = source.Select(o => o.ToAirQualityShortTerm()).ToList();
@@ -41,9 +41,9 @@ namespace SuncereDataCenter.Core.Sync
                     calculator.Calculate(cityGroup, item);
                     list.Add(item.ToCityMonthlyAirQuality());
                 }
-                IQueryable<CityMonthlyAirQuality> oldList = Entities.CityMonthlyAirQuality.Where(o => o.Time == startTime);
-                Entities.CityMonthlyAirQuality.RemoveRange(oldList);
-                Entities.CityMonthlyAirQuality.AddRange(list);
+                IQueryable<CityMonthlyAirQuality> oldList = Model.CityMonthlyAirQuality.Where(o => o.Time == startTime);
+                Model.CityMonthlyAirQuality.RemoveRange(oldList);
+                Model.CityMonthlyAirQuality.AddRange(list);
                 queue.Status = true;
             }
             queue.LastTime = DateTime.Now;

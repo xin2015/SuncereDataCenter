@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h3 class="page-header">登录</h3>
+<form class="form-horizontal" method="post">
+    @Html.AntiForgeryToken()
+    @Html.Hidden("token")
+    <div class="form-group">
+        <label for="userName" class="col-sm-2 control-label">账号：</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="userName" name="userName" placeholder="请输入账号">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">密码：</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" class="btn btn-primary">登录</button>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+    <script src="~/Scripts/jsencrypt.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var publicKey = "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDNBltzMekzHlMgMA5aw/MwMFrR9WJ5ai+1Ls2nuEmJMSHNX7dNZPdCj0v6TH96Igwh8cxqsgAY2Z/e4wxCqswQYxeVgRVCcpGabMZEsnYIMJDQQgihwKh39Z4eJl96EigWImzzSKDOM+gJur/Z2If6HY9Cj0SReI7uYjVXT/IihQIDAQAB-----END PUBLIC KEY-----";
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(publicKey);
+            $("button").click(function () {
+                var info = {
+                    UserName: $("#userName").val(),
+                    Password: $("#password").val(),
+                    Time: new Date()
+                };
+                var text = JSON.stringify(info);
+                text = encrypt.encrypt(text);
+                $("#token").val(text);
+                $("form").submit();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,62 @@
+﻿@model SuncereDataCenter.Model.SuncerePermission
+
+@{
+    ViewBag.Title = "角色权限删除";
+    int roleId = ViewBag.RoleId;
+}
+
+<h3 class="page-header">删除</h3>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Name">名称</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Name)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Type">类型</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@(Model.Type == 1 ? "菜单" : "页面")</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Controller">控制器</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Controller)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Action">方法</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Action)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Order">排序</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Order)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Status">状态</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@(Model.Status ? "启用" : "关闭")</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Remark">备注</label>
+        <div class="col-md-10">
+            <p class="form-control-static">@Html.DisplayFor(model => model.Remark)</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="删除" class="btn btn-danger" />
+                @Html.ActionLink("返回", "RolePermissionList", new { roleId = roleId }, new { @class = "btn btn-default" })
+            }
+        </div>
+    </div>
+</div>

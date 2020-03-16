@@ -38,7 +38,7 @@ namespace SuncereDataCenter.UnitTest.Model
                 //calculator.CalculateAirQualityCompositeIndex(item);
                 list.Add(item);
             }
-            using (SuncereDataCenterEntities db = new SuncereDataCenterEntities())
+            using (SuncereDataCenterModel db = new SuncereDataCenterModel())
             {
                 db.CityMonthlyAirQuality.AddRange(list);
                 db.SaveChanges();
@@ -48,7 +48,7 @@ namespace SuncereDataCenter.UnitTest.Model
         [TestMethod]
         public void Init()
         {
-            using (SuncereDataCenterEntities db = new SuncereDataCenterEntities())
+            using (SuncereDataCenterModel db = new SuncereDataCenterModel())
             {
                 DateTime now = DateTime.Now;
                 SuncereUser user = new SuncereUser()
@@ -132,7 +132,7 @@ namespace SuncereDataCenter.UnitTest.Model
         [TestMethod]
         public void AirQualityPermission()
         {
-            using (SuncereDataCenterEntities db = new SuncereDataCenterEntities())
+            using (SuncereDataCenterModel db = new SuncereDataCenterModel())
             {
                 DateTime now = DateTime.Now;
                 SuncerePermission airPermission = new SuncerePermission()

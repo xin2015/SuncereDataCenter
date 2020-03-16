@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "角色权限新增";
+    int roleId = ViewBag.RoleId;
+    SelectList selectList = ViewBag.PermissionSelectList;
+}
+
+<h3 class="page-header">新增</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.Hidden("roleId", roleId)
+        <div class="form-group">
+            <label class="control-label col-md-2" for="roleId">权限</label>
+            <div class="col-md-10">
+                @Html.DropDownList("permissionId", selectList, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="保存" class="btn btn-primary" />
+                @Html.ActionLink("返回", "RolePermissionList", new { roleId = roleId }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}

@@ -13,14 +13,14 @@ namespace SuncereDataCenter.Core.AirQuality
         public void CalculateRank(IEnumerable<IAirQualityLongTerm> data)
         {
             RankCalculator rankCalculator = new RankCalculator();
-            rankCalculator.Calculate<IAirQualityLongTerm>(data, o => o.SO2, (o, rank) => { o.SO2R = rank; });
-            rankCalculator.Calculate<IAirQualityLongTerm>(data, o => o.NO2, (o, rank) => { o.NO2R = rank; });
-            rankCalculator.Calculate<IAirQualityLongTerm>(data, o => o.PM10, (o, rank) => { o.PM10R = rank; });
-            rankCalculator.Calculate<IAirQualityLongTerm>(data, o => o.CO, (o, rank) => { o.COR = rank; });
-            rankCalculator.Calculate<IAirQualityLongTerm>(data, o => o.O3, (o, rank) => { o.O3R = rank; });
-            rankCalculator.Calculate<IAirQualityLongTerm>(data, o => o.PM25, (o, rank) => { o.PM25R = rank; });
-            rankCalculator.Calculate<IAirQualityLongTerm>(data, o => o.AQCI, (o, rank) => { o.AQCIR = rank; });
-            rankCalculator.Calculate<IAirQualityLongTerm>(data, o => o.StandardDays, (o, rank) => { o.StandardDaysR = rank; });
+            rankCalculator.Calculate(data, o => o.SO2, (o, rank) => { o.SO2R = rank; });
+            rankCalculator.Calculate(data, o => o.NO2, (o, rank) => { o.NO2R = rank; });
+            rankCalculator.Calculate(data, o => o.PM10, (o, rank) => { o.PM10R = rank; });
+            rankCalculator.Calculate(data, o => o.CO, (o, rank) => { o.COR = rank; });
+            rankCalculator.Calculate(data, o => o.O3, (o, rank) => { o.O3R = rank; });
+            rankCalculator.Calculate(data, o => o.PM25, (o, rank) => { o.PM25R = rank; });
+            rankCalculator.Calculate(data, o => o.AQCI, (o, rank) => { o.AQCIR = rank; });
+            rankCalculator.Calculate(data, o => o.StandardDays, (o, rank) => { o.StandardDaysR = rank; });
         }
 
         public void Calculate(IEnumerable<IAirQualityIndexCalculate> data, IAirQualityStatistics result)

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<SuncereDataCenter.Model.SuncerePermission>
 @{
-    ViewBag.Title = "RolePermissionList";
+    ViewBag.Title = "角色权限管理";
     SelectList selectList = ViewBag.ParentPermissionSelectList as SelectList;
 }
 
@@ -40,7 +40,7 @@
                     @Html.DisplayFor(modelItem => item.Remark)
                 </td>
                 <td>
-                    @Html.ActionLink("删除", "RolePermissionDelete", new { roleId = ViewBag.RoleId, id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                    @Html.ActionLink("删除", "RolePermissionDelete", new { roleId = ViewBag.RoleId, permissionId = item.Id }, new { @class = "btn btn-danger btn-sm" })
                 </td>
             </tr>
         }

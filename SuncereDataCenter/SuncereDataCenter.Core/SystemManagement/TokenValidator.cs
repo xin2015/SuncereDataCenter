@@ -13,12 +13,12 @@ namespace SuncereDataCenter.Core.SystemManagement
     public class TokenValidator
     {
         private ILog logger;
-        public SuncereDataCenterEntities Entities { get; set; }
+        public SuncereDataCenterModel Model { get; set; }
 
-        public TokenValidator(SuncereDataCenterEntities entities)
+        public TokenValidator(SuncereDataCenterModel model)
         {
             logger = LogManager.GetLogger<TokenValidator>();
-            Entities = entities;
+            Model = model;
         }
 
         public bool Validate(string token, string controller, string action)
@@ -35,7 +35,7 @@ namespace SuncereDataCenter.Core.SystemManagement
                 else
                 {
                     string password = SHA1Encryption.Default.EncryptPassword(tm.Password);
-                    SuncereUser user = Entities.SuncereUser.FirstOrDefault(o => o.Status && o.UserName == tm.UserName && o.Password == password);
+                    SuncereUser user = Model.SuncereUser.FirstOrDefault(o => o.Status && o.UserName == tm.UserName && o.Password == password);
                     if (user == null)
                     {
                         result = false;

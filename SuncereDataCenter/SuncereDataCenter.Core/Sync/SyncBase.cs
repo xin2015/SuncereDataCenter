@@ -19,16 +19,16 @@ namespace SuncereDataCenter.Core.Sync
 
     public abstract class SyncBase<TEntity> : ISync
     {
-        protected SuncereDataCenterEntities Entities { get; set; }
+        protected SuncereDataCenterModel Model { get; set; }
         protected string Class { get; set; }
         protected ILog Logger { get; set; }
         protected TimeSpan Interval { get; set; }
         protected TimeSpan StartTimeDeviation { get; set; }
         protected TimeSpan EndTimeDeviation { get; set; }
 
-        public SyncBase(SuncereDataCenterEntities entities)
+        public SyncBase(SuncereDataCenterModel model)
         {
-            Entities = entities;
+            Model = model;
             Class = typeof(TEntity).Name;
             Logger = LogManager.GetLogger(Class);
         }
@@ -36,7 +36,7 @@ namespace SuncereDataCenter.Core.Sync
         public void Sync()
         {
             DateTime now = DateTime.Now;
-            List<SyncDataQueue> queues = Entities.SyncDataQueue.Where(o => o.Class == Class && !o.Status && o.StartTime <= now && o.EndTime >= now).ToList();
+            List<SyncDataQueue> queues = Model.SyncDataQueue.Where(o => o.Class == Class && !o.Status && o.StartTime <= now && o.EndTime >= now).ToList();
             foreach (SyncDataQueue queue in queues)
             {
                 Sync(queue);
@@ -59,7 +59,7 @@ namespace SuncereDataCenter.Core.Sync
 
         public void CheckQueue(DateTime time)
         {
-            SyncDataQueue queue = Entities.SyncDataQueue.FirstOrDefault(o => o.Class == Class && o.Time == time);
+            SyncDataQueue queue = Model.SyncDataQueue.FirstOrDefault(o => o.Class == Class && o.Time == time);
             if (queue == null)
             {
                 queue = new SyncDataQueue()
@@ -70,7 +70,7 @@ namespace SuncereDataCenter.Core.Sync
                     EndTime = time.Add(EndTimeDeviation),
                     LastTime = DateTime.Now
                 };
-                Entities.SyncDataQueue.Add(queue);
+                Model.SyncDataQueue.Add(queue);
             }
         }
 

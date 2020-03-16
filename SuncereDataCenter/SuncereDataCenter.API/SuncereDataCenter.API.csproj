@@ -184,6 +184,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsencrypt.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -196,14 +197,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\System\UserList.cshtml" />
     <Content Include="Views\System\UserAdd.cshtml" />
     <Content Include="Views\System\PermissionList.cshtml" />
-    <Content Include="Views\Home\SignIn.cshtml" />
     <Content Include="Views\System\RoleList.cshtml" />
     <Content Include="Views\System\UserDetails.cshtml" />
     <Content Include="Views\System\UserEdit.cshtml" />
@@ -220,6 +218,11 @@
     <Content Include="Views\System\PermissionDetails.cshtml" />
     <Content Include="Views\System\PermissionEdit.cshtml" />
     <Content Include="Views\System\PermissionDelete.cshtml" />
+    <Content Include="Views\System\UserRoleDelete.cshtml" />
+    <Content Include="Views\System\RolePermissionAdd.cshtml" />
+    <Content Include="Views\System\RolePermissionDelete.cshtml" />
+    <Content Include="Views\Home\LoginTemp.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

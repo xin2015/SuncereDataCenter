@@ -66,5 +66,32 @@ namespace SuncereDataCenter.Core.Extensions
                 PrimaryPollutant = source.PrimaryPollutant
             };
         }
+
+        public static AirQualityLongTermYearOnYear ToAirQualityLongTermYearOnYear(this AirQualityLongTerm source)
+        {
+            return new AirQualityLongTermYearOnYear()
+            {
+                Code = source.Code,
+                Time = source.Time,
+                Name = source.Name,
+                SO2 = source.SO2,
+                NO2 = source.NO2,
+                PM10 = source.PM10,
+                CO = source.CO,
+                O3 = source.O3,
+                PM25 = source.PM25,
+                AQCI = source.AQCI,
+                StandardDays = source.StandardDays,
+                PrimaryPollutant = source.PrimaryPollutant,
+                SO2R = source.SO2R,
+                NO2R = source.NO2R,
+                PM10R = source.PM10R,
+                COR = source.COR,
+                O3R = source.O3R,
+                PM25R = source.PM25R,
+                AQCIR = source.AQCIR,
+                StandardDaysR = source.StandardDaysR
+            };
+        }
     }
 }

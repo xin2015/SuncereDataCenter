@@ -1,0 +1,25 @@
+﻿@using SuncereDataCenter.Core.Helper;
+@using SuncereDataCenter.Model;
+@{
+    SuncereUser user = SessionHelper.GetCurrentUser();
+}
+@if (user == null)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("登录", "Login", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
+else
+{
+    using (Html.BeginForm("LogOff", "Home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink(user.DisplayName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">注销</a></li>
+        </ul>
+    }
+}

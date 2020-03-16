@@ -17,7 +17,7 @@ namespace SuncereDataCenter.UnitTest.Core
         [TestMethod]
         public void ValidateTest()
         {
-            SuncereDataCenterEntities entities = new SuncereDataCenterEntities();
+            SuncereDataCenterModel entities = new SuncereDataCenterModel();
             TokenValidator validator = new TokenValidator(entities);
             TokenModel tm = new TokenModel("admin", "123456");
             string token = AsymmetricEncryption.Default.EncryptToString(JsonConvert.SerializeObject(tm));

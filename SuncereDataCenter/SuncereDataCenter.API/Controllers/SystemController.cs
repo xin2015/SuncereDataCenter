@@ -11,24 +11,24 @@ namespace SuncereDataCenter.API.Controllers
 {
     public class SystemController : Controller
     {
-        private SuncereDataCenterEntities entities;
+        private SuncereDataCenterModel model;
 
         public SystemController()
         {
-            entities = new SuncereDataCenterEntities();
+            model = new SuncereDataCenterModel();
         }
 
         #region User
         public ActionResult UserList()
         {
-            return View(entities.SuncereUser.ToList());
+            return View(model.SuncereUser.ToList());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UserList(string keyword)
         {
-            IQueryable<SuncereUser> query = entities.SuncereUser;
+            IQueryable<SuncereUser> query = model.SuncereUser;
             if (!string.IsNullOrEmpty(keyword))
             {
                 query = query.Where(o => o.UserName.Contains(keyword) || o.DisplayName.Contains(keyword) || o.Remark.Contains(keyword));
@@ -48,28 +48,27 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                SuncereUser item = entities.SuncereUser.FirstOrDefault(o => o.UserName == user.UserName);
+                SuncereUser item = model.SuncereUser.FirstOrDefault(o => o.UserName == user.UserName);
                 if (item == null)
                 {
                     user.Status = true;
                     user.CreationTime = DateTime.Now;
                     user.Password = SHA1Encryption.Default.EncryptPassword(user.Password);
-                    entities.SuncereUser.Add(user);
-                    entities.SaveChanges();
+                    model.SuncereUser.Add(user);
+                    model.SaveChanges();
                     return RedirectToAction("UserList");
                 }
                 else
                 {
-                    ModelState.AddModelError("UserExist", "用户已存在！");
+                    ModelState.AddModelError("UserName", "账号已存在！");
                 }
             }
-
             return View(user);
         }
 
         public ActionResult UserDetails(int id)
         {
-            SuncereUser user = entities.SuncereUser.Find(id);
+            SuncereUser user = model.SuncereUser.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -79,7 +78,7 @@ namespace SuncereDataCenter.API.Controllers
 
         public ActionResult UserEdit(int id)
         {
-            SuncereUser user = entities.SuncereUser.Find(id);
+            SuncereUser user = model.SuncereUser.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -89,11 +88,11 @@ namespace SuncereDataCenter.API.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UserEdit([Bind(Include = "Id,DisplayName,EmailAddress,PhoneNumber,Status,IP,EnableIPBinding,Remark")] SuncereUser user)
+        public ActionResult UserEdit([Bind(Include = "Id,UserName,DisplayName,Password,EmailAddress,PhoneNumber,Status,IP,EnableIPBinding,Remark")] SuncereUser user)
         {
             if (ModelState.IsValid)
             {
-                SuncereUser item = entities.SuncereUser.Find(user.Id);
+                SuncereUser item = model.SuncereUser.Find(user.Id);
                 if (item == null)
                 {
                     return HttpNotFound();
@@ -108,17 +107,16 @@ namespace SuncereDataCenter.API.Controllers
                     item.EnableIPBinding = user.EnableIPBinding;
                     item.Remark = user.Remark;
                     item.LastModificationTime = DateTime.Now;
-                    entities.SaveChanges();
+                    model.SaveChanges();
                     return RedirectToAction("UserList");
                 }
             }
-
             return View(user);
         }
 
         public ActionResult UserDelete(int id)
         {
-            SuncereUser user = entities.SuncereUser.Find(id);
+            SuncereUser user = model.SuncereUser.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -130,19 +128,19 @@ namespace SuncereDataCenter.API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UserDeleteConfirmed(int id)
         {
-            SuncereUser user = entities.SuncereUser.Find(id);
+            SuncereUser user = model.SuncereUser.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            entities.SuncereUser.Remove(user);
-            entities.SaveChanges();
+            model.SuncereUser.Remove(user);
+            model.SaveChanges();
             return RedirectToAction("UserList");
         }
 
         public ActionResult UserReset(int id)
         {
-            SuncereUser user = entities.SuncereUser.Find(id);
+            SuncereUser user = model.SuncereUser.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -154,19 +152,19 @@ namespace SuncereDataCenter.API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UserResetConfirmed(int id)
         {
-            SuncereUser user = entities.SuncereUser.Find(id);
+            SuncereUser user = model.SuncereUser.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
             user.Password = SHA1Encryption.Default.EncryptPassword("123456");
-            entities.SaveChanges();
+            model.SaveChanges();
             return RedirectToAction("UserList");
         }
 
         public ActionResult UserRoleList(int userId)
         {
-            SuncereUser user = entities.SuncereUser.Find(userId);
+            SuncereUser user = model.SuncereUser.Find(userId);
             if (user == null)
             {
                 return HttpNotFound();
@@ -177,13 +175,13 @@ namespace SuncereDataCenter.API.Controllers
 
         public ActionResult UserRoleAdd(int userId)
         {
-            SuncereUser user = entities.SuncereUser.Find(userId);
+            SuncereUser user = model.SuncereUser.Find(userId);
             if (user == null)
             {
                 return HttpNotFound();
             }
             ViewBag.UserId = userId;
-            List<SuncereRole> roleList = entities.SuncereRole.ToList();
+            List<SuncereRole> roleList = model.SuncereRole.ToList();
             SelectList selectList = new SelectList(roleList, "Id", "Name");
             ViewBag.RoleSelectList = selectList;
             return View();
@@ -193,12 +191,12 @@ namespace SuncereDataCenter.API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UserRoleAdd(int userId, int roleId)
         {
-            SuncereUser user = entities.SuncereUser.Find(userId);
+            SuncereUser user = model.SuncereUser.Find(userId);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            SuncereRole role = entities.SuncereRole.Find(roleId);
+            SuncereRole role = model.SuncereRole.Find(roleId);
             if (role == null)
             {
                 return HttpNotFound();
@@ -206,8 +204,43 @@ namespace SuncereDataCenter.API.Controllers
             if (!user.SuncereRole.Any(o => o.Id == roleId))
             {
                 user.SuncereRole.Add(role);
-                entities.SaveChanges();
+                model.SaveChanges();
             }
+            return RedirectToAction("UserRoleList", new { userId = userId });
+        }
+
+        public ActionResult UserRoleDelete(int userId, int roleId)
+        {
+            SuncereUser user = model.SuncereUser.Find(userId);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            SuncereRole role = model.SuncereRole.Find(roleId);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.UserId = userId;
+            return View(role);
+        }
+
+        [HttpPost, ActionName("UserRoleDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserRoleDeleteConfirmed(int userId, int roleId)
+        {
+            SuncereUser user = model.SuncereUser.Find(userId);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            SuncereRole role = model.SuncereRole.Find(roleId);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            user.SuncereRole.Remove(role);
+            model.SaveChanges();
             return RedirectToAction("UserRoleList", new { userId = userId });
         }
         #endregion
@@ -215,14 +248,14 @@ namespace SuncereDataCenter.API.Controllers
         #region Role
         public ActionResult RoleList()
         {
-            return View(entities.SuncereRole.ToList());
+            return View(model.SuncereRole.ToList());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RoleList(string keyword)
         {
-            IQueryable<SuncereRole> query = entities.SuncereRole;
+            IQueryable<SuncereRole> query = model.SuncereRole;
             if (!string.IsNullOrEmpty(keyword))
             {
                 query = query.Where(o => o.Name.Contains(keyword) || o.Remark.Contains(keyword));
@@ -242,18 +275,18 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                SuncereRole item = entities.SuncereRole.FirstOrDefault(o => o.Name == role.Name);
+                SuncereRole item = model.SuncereRole.FirstOrDefault(o => o.Name == role.Name);
                 if (item == null)
                 {
                     role.Status = true;
                     role.CreationTime = DateTime.Now;
-                    entities.SuncereRole.Add(role);
-                    entities.SaveChanges();
+                    model.SuncereRole.Add(role);
+                    model.SaveChanges();
                     return RedirectToAction("RoleList");
                 }
                 else
                 {
-                    ModelState.AddModelError("RoleExist", "角色已存在！");
+                    ModelState.AddModelError("Name", "名称已存在！");
                 }
             }
 
@@ -262,7 +295,7 @@ namespace SuncereDataCenter.API.Controllers
 
         public ActionResult RoleDetails(int id)
         {
-            SuncereRole role = entities.SuncereRole.Find(id);
+            SuncereRole role = model.SuncereRole.Find(id);
             if (role == null)
             {
                 return HttpNotFound();
@@ -272,7 +305,7 @@ namespace SuncereDataCenter.API.Controllers
 
         public ActionResult RoleEdit(int id)
         {
-            SuncereRole role = entities.SuncereRole.Find(id);
+            SuncereRole role = model.SuncereRole.Find(id);
             if (role == null)
             {
                 return HttpNotFound();
@@ -282,11 +315,11 @@ namespace SuncereDataCenter.API.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RoleEdit([Bind(Include = "Id,Status,Remark")] SuncereRole role)
+        public ActionResult RoleEdit([Bind(Include = "Id,Name,Status,Remark")] SuncereRole role)
         {
             if (ModelState.IsValid)
             {
-                SuncereRole item = entities.SuncereRole.Find(role.Id);
+                SuncereRole item = model.SuncereRole.Find(role.Id);
                 if (item == null)
                 {
                     return HttpNotFound();
@@ -296,17 +329,16 @@ namespace SuncereDataCenter.API.Controllers
                     item.Status = role.Status;
                     item.Remark = role.Remark;
                     item.LastModificationTime = DateTime.Now;
-                    entities.SaveChanges();
+                    model.SaveChanges();
                     return RedirectToAction("RoleList");
                 }
             }
-
             return View(role);
         }
 
         public ActionResult RoleDelete(int id)
         {
-            SuncereRole role = entities.SuncereRole.Find(id);
+            SuncereRole role = model.SuncereRole.Find(id);
             if (role == null)
             {
                 return HttpNotFound();
@@ -318,25 +350,96 @@ namespace SuncereDataCenter.API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RoleDeleteConfirmed(int id)
         {
-            SuncereRole role = entities.SuncereRole.Find(id);
+            SuncereRole role = model.SuncereRole.Find(id);
             if (role == null)
             {
                 return HttpNotFound();
             }
-            entities.SuncereRole.Remove(role);
-            entities.SaveChanges();
+            model.SuncereRole.Remove(role);
+            model.SaveChanges();
             return RedirectToAction("RoleList");
         }
 
         public ActionResult RolePermissionList(int roleId)
         {
-            SuncereRole role = entities.SuncereRole.Find(roleId);
+            SuncereRole role = model.SuncereRole.Find(roleId);
             if (role == null)
             {
                 return HttpNotFound();
             }
             ViewBag.RoleId = roleId;
             return View(role.SuncerePermission.ToList());
+        }
+
+        public ActionResult RolePermissionAdd(int roleId)
+        {
+            SuncereRole role = model.SuncereRole.Find(roleId);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.RoleId = roleId;
+            List<SuncerePermission> permissionList = model.SuncerePermission.ToList();
+            SelectList selectList = new SelectList(permissionList, "Id", "Name");
+            ViewBag.PermissionSelectList = selectList;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RolePermissionAdd(int roleId, int permissionId)
+        {
+            SuncereRole role = model.SuncereRole.Find(roleId);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            SuncerePermission permission = model.SuncerePermission.Find(permissionId);
+            if (permission == null)
+            {
+                return HttpNotFound();
+            }
+            if (!role.SuncerePermission.Any(o => o.Id == permissionId))
+            {
+                role.SuncerePermission.Add(permission);
+                model.SaveChanges();
+            }
+            return RedirectToAction("RolePermissionList", new { roleId = roleId });
+        }
+
+        public ActionResult RolePermissionDelete(int roleId, int permissionId)
+        {
+            SuncereRole role = model.SuncereRole.Find(roleId);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            SuncerePermission permission = model.SuncerePermission.Find(permissionId);
+            if (permission == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.RoleId = roleId;
+            return View(permission);
+        }
+
+        [HttpPost, ActionName("RolePermissionDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult RolePermissionDeleteConfirmed(int roleId, int permissionId)
+        {
+            SuncereRole role = model.SuncereRole.Find(roleId);
+            if (role == null)
+            {
+                return HttpNotFound();
+            }
+            SuncerePermission permission = model.SuncerePermission.Find(permissionId);
+            if (permission == null)
+            {
+                return HttpNotFound();
+            }
+            role.SuncerePermission.Remove(permission);
+            model.SaveChanges();
+            return RedirectToAction("RolePermissionList", new { roleId = roleId });
         }
         #endregion
 
@@ -345,7 +448,7 @@ namespace SuncereDataCenter.API.Controllers
         {
             SelectList selectList = GetParentPermissionSelectList(null);
             ViewBag.ParentPermissionSelectList = selectList;
-            return View(entities.SuncerePermission.ToList());
+            return View(model.SuncerePermission.ToList());
         }
 
         private SelectList GetParentPermissionSelectList(int? parentId)
@@ -357,7 +460,7 @@ namespace SuncereDataCenter.API.Controllers
 
         private List<SuncerePermission> GetParentPermissionList()
         {
-            List<SuncerePermission> parentPermissionList = entities.SuncerePermission.Where(o => o.Type == 1).ToList();
+            List<SuncerePermission> parentPermissionList = model.SuncerePermission.Where(o => o.Type == 1).ToList();
             parentPermissionList.Insert(0, new SuncerePermission() { Id = 0, Name = "无" });
             return parentPermissionList;
         }
@@ -366,7 +469,7 @@ namespace SuncereDataCenter.API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PermissionList(string keyword, int? parentId)
         {
-            IQueryable<SuncerePermission> query = entities.SuncerePermission;
+            IQueryable<SuncerePermission> query = model.SuncerePermission;
             if (!string.IsNullOrEmpty(keyword))
             {
                 query = query.Where(o => o.Name.Contains(keyword) || o.Controller.Contains(keyword) || o.Action.Contains(keyword) || o.Remark.Contains(keyword));
@@ -394,13 +497,13 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                SuncerePermission item = entities.SuncerePermission.FirstOrDefault(o => o.Name == permission.Name);
+                SuncerePermission item = model.SuncerePermission.FirstOrDefault(o => o.Name == permission.Name);
                 if (item == null)
                 {
                     permission.Status = true;
                     permission.CreationTime = DateTime.Now;
-                    entities.SuncerePermission.Add(permission);
-                    entities.SaveChanges();
+                    model.SuncerePermission.Add(permission);
+                    model.SaveChanges();
                     return RedirectToAction("PermissionList");
                 }
                 else
@@ -415,7 +518,7 @@ namespace SuncereDataCenter.API.Controllers
 
         public ActionResult PermissionDetails(int id)
         {
-            SuncerePermission permission = entities.SuncerePermission.Find(id);
+            SuncerePermission permission = model.SuncerePermission.Find(id);
             if (permission == null)
             {
                 return HttpNotFound();
@@ -427,7 +530,7 @@ namespace SuncereDataCenter.API.Controllers
 
         public ActionResult PermissionEdit(int id)
         {
-            SuncerePermission permission = entities.SuncerePermission.Find(id);
+            SuncerePermission permission = model.SuncerePermission.Find(id);
             if (permission == null)
             {
                 return HttpNotFound();
@@ -443,7 +546,7 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                SuncerePermission item = entities.SuncerePermission.Find(permission.Id);
+                SuncerePermission item = model.SuncerePermission.Find(permission.Id);
                 if (item == null)
                 {
                     return HttpNotFound();
@@ -459,7 +562,7 @@ namespace SuncereDataCenter.API.Controllers
                     item.Status = permission.Status;
                     item.Remark = permission.Remark;
                     item.LastModificationTime = DateTime.Now;
-                    entities.SaveChanges();
+                    model.SaveChanges();
                     return RedirectToAction("PermissionList");
                 }
             }
@@ -470,12 +573,12 @@ namespace SuncereDataCenter.API.Controllers
 
         public ActionResult PermissionDelete(int id)
         {
-            SuncerePermission permission = entities.SuncerePermission.Find(id);
+            SuncerePermission permission = model.SuncerePermission.Find(id);
             if (permission == null)
             {
                 return HttpNotFound();
             }
-            List<SuncerePermission> parentPermissionList = entities.SuncerePermission.Where(o => o.Type == 1).ToList();
+            List<SuncerePermission> parentPermissionList = model.SuncerePermission.Where(o => o.Type == 1).ToList();
             ViewBag.ParentPermissionList = parentPermissionList;
             return View(permission);
         }
@@ -484,22 +587,221 @@ namespace SuncereDataCenter.API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PermissionDeleteConfirmed(int id)
         {
-            SuncerePermission permission = entities.SuncerePermission.Find(id);
+            SuncerePermission permission = model.SuncerePermission.Find(id);
             if (permission == null)
             {
                 return HttpNotFound();
             }
-            entities.SuncerePermission.Remove(permission);
-            entities.SaveChanges();
+            model.SuncerePermission.Remove(permission);
+            model.SaveChanges();
             return RedirectToAction("PermissionList");
         }
+        #endregion
+
+        #region Area
+        //public ActionResult AreaList()
+        //{
+        //    return View(model.Area.ToList());
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AreaList(string keyword)
+        //{
+        //    IQueryable<Area> query = model.Area;
+        //    if (!string.IsNullOrEmpty(keyword))
+        //    {
+        //        query = query.Where(o => o.AreaCode.Contains(keyword) || o.AreaName.Contains(keyword));
+        //    }
+        //    ViewBag.Keyword = keyword;
+        //    return View(query.ToList());
+        //}
+
+        //public ActionResult AreaAdd()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AreaAdd([Bind(Include = "AreaCode,AreaName")] Area area)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Area item = model.Area.FirstOrDefault(o => o.AreaCode == area.AreaCode);
+        //        if (item == null)
+        //        {
+        //            model.Area.Add(area);
+        //            model.SaveChanges();
+        //            return RedirectToAction("AreaList");
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError("AreaCode", "编码已存在！");
+        //        }
+        //    }
+
+        //    return View(area);
+        //}
+
+        //public ActionResult AreaDetails(int id)
+        //{
+        //    Area area = model.Area.Find(id);
+        //    if (area == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(area);
+        //}
+
+        //public ActionResult AreaEdit(int id)
+        //{
+        //    Area area = model.Area.Find(id);
+        //    if (area == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(area);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AreaEdit([Bind(Include = "AreaCode,AreaName")] Area area)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Area item = model.Area.Find(area.AreaCode);
+        //        if (item == null)
+        //        {
+        //            return HttpNotFound();
+        //        }
+        //        else
+        //        {
+        //            item.Status = role.Status;
+        //            item.Remark = role.Remark;
+        //            item.LastModificationTime = DateTime.Now;
+        //            model.SaveChanges();
+        //            return RedirectToAction("AreaList");
+        //        }
+        //    }
+        //    return View(role);
+        //}
+
+        //public ActionResult AreaDelete(int id)
+        //{
+        //    Area role = model.Area.Find(id);
+        //    if (role == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(role);
+        //}
+
+        //[HttpPost, ActionName("AreaDelete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AreaDeleteConfirmed(int id)
+        //{
+        //    Area role = model.Area.Find(id);
+        //    if (role == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    model.Area.Remove(role);
+        //    model.SaveChanges();
+        //    return RedirectToAction("AreaList");
+        //}
+
+        //public ActionResult AreaPermissionList(int roleId)
+        //{
+        //    Area role = model.Area.Find(roleId);
+        //    if (role == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.AreaId = roleId;
+        //    return View(role.Permission.ToList());
+        //}
+
+        //public ActionResult AreaPermissionAdd(int roleId)
+        //{
+        //    Area role = model.Area.Find(roleId);
+        //    if (role == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.AreaId = roleId;
+        //    List<Permission> permissionList = model.Permission.ToList();
+        //    SelectList selectList = new SelectList(permissionList, "Id", "Name");
+        //    ViewBag.PermissionSelectList = selectList;
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AreaPermissionAdd(int roleId, int permissionId)
+        //{
+        //    Area role = model.Area.Find(roleId);
+        //    if (role == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    Permission permission = model.Permission.Find(permissionId);
+        //    if (permission == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    if (!role.Permission.Any(o => o.Id == permissionId))
+        //    {
+        //        role.Permission.Add(permission);
+        //        model.SaveChanges();
+        //    }
+        //    return RedirectToAction("AreaPermissionList", new { roleId = roleId });
+        //}
+
+        //public ActionResult AreaPermissionDelete(int roleId, int permissionId)
+        //{
+        //    Area role = model.Area.Find(roleId);
+        //    if (role == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    Permission permission = model.Permission.Find(permissionId);
+        //    if (permission == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.AreaId = roleId;
+        //    return View(permission);
+        //}
+
+        //[HttpPost, ActionName("AreaPermissionDelete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AreaPermissionDeleteConfirmed(int roleId, int permissionId)
+        //{
+        //    Area role = model.Area.Find(roleId);
+        //    if (role == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    Permission permission = model.Permission.Find(permissionId);
+        //    if (permission == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    role.Permission.Remove(permission);
+        //    model.SaveChanges();
+        //    return RedirectToAction("AreaPermissionList", new { roleId = roleId });
+        //}
+        #endregion
+
+        #region City
         #endregion
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                entities.Dispose();
+                model.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -16,23 +16,23 @@ namespace SuncereDataCenter.API.Controllers
 {
     public class CityAirQualityController : ApiController
     {
-        private SuncereDataCenterEntities entities;
+        private SuncereDataCenterModel model;
         private TokenValidator validator;
 
         public CityAirQualityController() : base()
         {
-            entities = new SuncereDataCenterEntities();
-            validator = new TokenValidator(entities);
+            model = new SuncereDataCenterModel();
+            validator = new TokenValidator(model);
         }
 
         public List<AirQualityShortTerm> GetCityHourlyAirQuality(string token, DateTime time, string areaCode)
         {
             if (validator.Validate(token, "CityAirQuality", "GetCityHourlyAirQuality"))
             {
-                IQueryable<CityHourlyAirQuality> query = entities.CityHourlyAirQuality.Where(o => o.Time == time);
+                IQueryable<CityHourlyAirQuality> query = model.CityHourlyAirQuality.Where(o => o.Time == time);
                 if (!string.IsNullOrEmpty(areaCode))
                 {
-                    Area area = entities.Area.FirstOrDefault(o => o.AreaCode == areaCode);
+                    Area area = model.Area.FirstOrDefault(o => o.AreaCode == areaCode);
                     if (area == null)
                     {
                         query = query.Where(o => false);
@@ -58,10 +58,10 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (validator.Validate(token, "CityAirQuality", "GetCityDailyAirQuality"))
             {
-                IQueryable<CityDailyAirQuality> query = entities.CityDailyAirQuality.Where(o => o.Time == time);
+                IQueryable<CityDailyAirQuality> query = model.CityDailyAirQuality.Where(o => o.Time == time);
                 if (!string.IsNullOrEmpty(areaCode))
                 {
-                    Area area = entities.Area.FirstOrDefault(o => o.AreaCode == areaCode);
+                    Area area = model.Area.FirstOrDefault(o => o.AreaCode == areaCode);
                     if (area == null)
                     {
                         query = query.Where(o => false);
@@ -87,10 +87,10 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (validator.Validate(token, "CityAirQuality", "GetCityMonthlyAirQuality"))
             {
-                IQueryable<CityMonthlyAirQuality> query = entities.CityMonthlyAirQuality.Where(o => o.Time == time);
+                IQueryable<CityMonthlyAirQuality> query = model.CityMonthlyAirQuality.Where(o => o.Time == time);
                 if (!string.IsNullOrEmpty(areaCode))
                 {
-                    Area area = entities.Area.FirstOrDefault(o => o.AreaCode == areaCode);
+                    Area area = model.Area.FirstOrDefault(o => o.AreaCode == areaCode);
                     if (area == null)
                     {
                         query = query.Where(o => false);
@@ -116,10 +116,10 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (validator.Validate(token, "CityAirQuality", "GetCityQuarterlyAirQuality"))
             {
-                IQueryable<CityQuarterlyAirQuality> query = entities.CityQuarterlyAirQuality.Where(o => o.Time == time);
+                IQueryable<CityQuarterlyAirQuality> query = model.CityQuarterlyAirQuality.Where(o => o.Time == time);
                 if (!string.IsNullOrEmpty(areaCode))
                 {
-                    Area area = entities.Area.FirstOrDefault(o => o.AreaCode == areaCode);
+                    Area area = model.Area.FirstOrDefault(o => o.AreaCode == areaCode);
                     if (area == null)
                     {
                         query = query.Where(o => false);
@@ -145,10 +145,10 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (validator.Validate(token, "CityAirQuality", "GetCityYearlyAirQuality"))
             {
-                IQueryable<CityYearlyAirQuality> query = entities.CityYearlyAirQuality.Where(o => o.Time == time);
+                IQueryable<CityYearlyAirQuality> query = model.CityYearlyAirQuality.Where(o => o.Time == time);
                 if (!string.IsNullOrEmpty(areaCode))
                 {
-                    Area area = entities.Area.FirstOrDefault(o => o.AreaCode == areaCode);
+                    Area area = model.Area.FirstOrDefault(o => o.AreaCode == areaCode);
                     if (area == null)
                     {
                         query = query.Where(o => false);
@@ -174,10 +174,10 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (validator.Validate(token, "CityAirQuality", "GetCityAnyTimeRangeAirQuality"))
             {
-                IQueryable<CityDailyAirQuality> query = entities.CityDailyAirQuality.Where(o => o.Time >= startTime && o.Time <= endTime);
+                IQueryable<CityDailyAirQuality> query = model.CityDailyAirQuality.Where(o => o.Time >= startTime && o.Time <= endTime);
                 if (!string.IsNullOrEmpty(areaCode))
                 {
-                    Area area = entities.Area.FirstOrDefault(o => o.AreaCode == areaCode);
+                    Area area = model.Area.FirstOrDefault(o => o.AreaCode == areaCode);
                     if (area == null)
                     {
                         query = query.Where(o => false);
@@ -212,11 +212,86 @@ namespace SuncereDataCenter.API.Controllers
             }
         }
 
+        public List<AirQualityShortTermYearOnYear> GetCityDailyAirQualityYearOnYear(string token, DateTime time, string areaCode)
+        {
+            if (validator.Validate(token, "CityAirQuality", "GetCityDailyAirQualityYearOnYear"))
+            {
+                List<AirQualityShortTerm> list = GetCityDailyAirQuality(token, time, areaCode);
+                List<AirQualityShortTerm> baseList = GetCityDailyAirQuality(token, time.AddYears(-1), areaCode);
+                AirQualityShortTermYearOnYearCalculator calculator = new AirQualityShortTermYearOnYearCalculator();
+                return calculator.Calculate(list, baseList);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<AirQualityLongTermYearOnYear> GetCityMonthlyAirQualityYearOnYear(string token, DateTime time, string areaCode)
+        {
+            if (validator.Validate(token, "CityAirQuality", "GetCityMonthlyAirQualityYearOnYear"))
+            {
+                List<AirQualityLongTerm> list = GetCityMonthlyAirQuality(token, time, areaCode);
+                List<AirQualityLongTerm> baseList = GetCityMonthlyAirQuality(token, time.AddYears(-1), areaCode);
+                AirQualityLongTermYearOnYearCalculator calculator = new AirQualityLongTermYearOnYearCalculator();
+                return calculator.Calculate(list, baseList);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<AirQualityLongTermYearOnYear> GetCityQuarterlyAirQualityYearOnYear(string token, DateTime time, string areaCode)
+        {
+            if (validator.Validate(token, "CityAirQuality", "GetCityQuarterlyAirQualityYearOnYear"))
+            {
+                List<AirQualityLongTerm> list = GetCityMonthlyAirQuality(token, time, areaCode);
+                List<AirQualityLongTerm> baseList = GetCityMonthlyAirQuality(token, time.AddYears(-1), areaCode);
+                AirQualityLongTermYearOnYearCalculator calculator = new AirQualityLongTermYearOnYearCalculator();
+                return calculator.Calculate(list, baseList);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<AirQualityLongTermYearOnYear> GetCityYearlyAirQualityYearOnYear(string token, DateTime time, string areaCode)
+        {
+            if (validator.Validate(token, "CityAirQuality", "GetCityYearlyAirQualityYearOnYear"))
+            {
+                List<AirQualityLongTerm> list = GetCityMonthlyAirQuality(token, time, areaCode);
+                List<AirQualityLongTerm> baseList = GetCityMonthlyAirQuality(token, time.AddYears(-1), areaCode);
+                AirQualityLongTermYearOnYearCalculator calculator = new AirQualityLongTermYearOnYearCalculator();
+                return calculator.Calculate(list, baseList);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<AirQualityLongTermYearOnYear> GetCityAnyTimeRangeAirQualityYearOnYear(string token, DateTime startTime, DateTime endTime, string areaCode)
+        {
+            if (validator.Validate(token, "CityAirQuality", "GetCityAnyTimeRangeAirQualityYearOnYear"))
+            {
+                List<AirQualityLongTerm> list = GetCityAnyTimeRangeAirQuality(token, startTime, endTime, areaCode);
+                List<AirQualityLongTerm> baseList = GetCityAnyTimeRangeAirQuality(token, startTime.AddYears(-1), endTime.AddYears(-1), areaCode);
+                AirQualityLongTermYearOnYearCalculator calculator = new AirQualityLongTermYearOnYearCalculator();
+                return calculator.Calculate(list, baseList);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                entities.Dispose();
+                model.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -10,7 +10,7 @@ namespace SuncereDataCenter.Core.Sync
 {
     public class CityHourlyAirQualitySync : SyncBase<CityHourlyAirQuality>
     {
-        public CityHourlyAirQualitySync(SuncereDataCenterEntities entities) : base(entities)
+        public CityHourlyAirQualitySync(SuncereDataCenterModel model) : base(model)
         {
             Interval = TimeSpan.FromHours(1);
             StartTimeDeviation = TimeSpan.FromMinutes(28);
@@ -19,7 +19,7 @@ namespace SuncereDataCenter.Core.Sync
 
         protected override void Sync(SyncDataQueue queue)
         {
-            using (EnvPublishStdEntities std = new EnvPublishStdEntities())
+            using (EnvPublishStdModel std = new EnvPublishStdModel())
             {
                 List<CityAQIPublishHistory> source = std.CityAQIPublishHistory.Where(o => o.TimePoint == queue.Time).ToList();
                 if (source.Any())
@@ -44,7 +44,7 @@ namespace SuncereDataCenter.Core.Sync
                         };
                         list.Add(item);
                     }
-                    Entities.CityHourlyAirQuality.AddRange(list);
+                    Model.CityHourlyAirQuality.AddRange(list);
                     queue.Status = true;
                 }
                 queue.LastTime = DateTime.Now;
