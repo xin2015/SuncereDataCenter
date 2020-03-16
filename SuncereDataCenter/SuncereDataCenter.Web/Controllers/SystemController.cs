@@ -1,15 +1,14 @@
-﻿using SuncereDataCenter.API.Models;
-using SuncereDataCenter.Basic.CryptoTransverters;
+﻿using SuncereDataCenter.Basic.CryptoTransverters;
 using SuncereDataCenter.Core.Attributes;
 using SuncereDataCenter.Model;
+using SuncereDataCenter.Web.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SuncereDataCenter.API.Controllers
+namespace SuncereDataCenter.Web.Controllers
 {
     [SuncereAuthorize]
     public class SystemController : Controller

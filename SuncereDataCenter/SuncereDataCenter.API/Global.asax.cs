@@ -1,5 +1,3 @@
-using SuncereDataCenter.Core.Model;
-using SuncereDataCenter.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +9,7 @@ using System.Web.Routing;
 
 namespace SuncereDataCenter.API
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class WebApiApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
         {
@@ -20,11 +18,6 @@ namespace SuncereDataCenter.API
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
-
-        protected void Initialize()
-        {
-
         }
     }
 }

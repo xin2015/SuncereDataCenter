@@ -11,11 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.UnitTest"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.Model", "SuncereDataCenter.Model\SuncereDataCenter.Model.csproj", "{F7250864-1B6C-4130-A94E-EF25D7F45573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.API", "SuncereDataCenter.API\SuncereDataCenter.API.csproj", "{720180D4-75BD-4DCB-963C-49BAF476402B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.Service", "SuncereDataCenter.Service\SuncereDataCenter.Service.csproj", "{7C647704-3B90-449D-ACD6-3EA802AB3DC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.WindowsForms", "SuncereDataCenter.WindowsForms\SuncereDataCenter.WindowsForms.csproj", "{A3D0E270-BBF3-4469-A52F-5D7853F96D94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.Web", "SuncereDataCenter.Web\SuncereDataCenter.Web.csproj", "{70B342E3-04F9-4825-BC73-635BAC1BFA56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuncereDataCenter.API", "SuncereDataCenter.API\SuncereDataCenter.API.csproj", "{00AEC6D1-0DA7-4CC1-9273-143560087560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +41,6 @@ Global
 		{F7250864-1B6C-4130-A94E-EF25D7F45573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7250864-1B6C-4130-A94E-EF25D7F45573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7250864-1B6C-4130-A94E-EF25D7F45573}.Release|Any CPU.Build.0 = Release|Any CPU
-		{720180D4-75BD-4DCB-963C-49BAF476402B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{720180D4-75BD-4DCB-963C-49BAF476402B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{720180D4-75BD-4DCB-963C-49BAF476402B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{720180D4-75BD-4DCB-963C-49BAF476402B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C647704-3B90-449D-ACD6-3EA802AB3DC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C647704-3B90-449D-ACD6-3EA802AB3DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C647704-3B90-449D-ACD6-3EA802AB3DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +49,14 @@ Global
 		{A3D0E270-BBF3-4469-A52F-5D7853F96D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3D0E270-BBF3-4469-A52F-5D7853F96D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3D0E270-BBF3-4469-A52F-5D7853F96D94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B342E3-04F9-4825-BC73-635BAC1BFA56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B342E3-04F9-4825-BC73-635BAC1BFA56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B342E3-04F9-4825-BC73-635BAC1BFA56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B342E3-04F9-4825-BC73-635BAC1BFA56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00AEC6D1-0DA7-4CC1-9273-143560087560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00AEC6D1-0DA7-4CC1-9273-143560087560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00AEC6D1-0DA7-4CC1-9273-143560087560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00AEC6D1-0DA7-4CC1-9273-143560087560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

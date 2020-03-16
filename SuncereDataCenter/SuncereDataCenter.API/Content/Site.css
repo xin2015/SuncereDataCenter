@@ -9,52 +9,9 @@
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
-}
-
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
-}
-
-.table {
-    text-align: center;
-    vertical-align: middle;
-}
-
-    .table > thead {
-        background-color: #ecf4f8;
-    }
-
-        .table > thead > tr > th {
-            text-align: center;
-            vertical-align: middle;
-            border: 1px solid #d8dbe0;
-        }
-
-    .table > tbody > tr > td {
-        text-align: center;
-        vertical-align: middle;
-    }
-
-.form-control-static {
-    max-width: 800px;
-    padding: 6px 12px;
-    font-size: 14px;
-    color: #555555;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Login */
-.form-login {
-    max-width: 500px;
-    padding: 15px;
-    margin: 0 auto;
 }
