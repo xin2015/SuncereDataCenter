@@ -58,8 +58,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\CityAirQualityTest.cs" />
     <Compile Include="Basic\AsymmetricEncryptionTest.cs" />
     <Compile Include="Basic\BytesExtensionTest.cs" />
     <Compile Include="Core\AirQualityCompositeIndexCalculatorTest.cs" />

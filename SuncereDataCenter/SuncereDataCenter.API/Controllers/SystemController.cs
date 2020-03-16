@@ -281,6 +281,7 @@ namespace SuncereDataCenter.API.Controllers
         #endregion
 
         #region Role
+        [SuncereAuthorize(Controller = "System", Action = "RoleList")]
         public ActionResult RoleList()
         {
             return View(model.SuncereRole.ToList());
@@ -479,6 +480,7 @@ namespace SuncereDataCenter.API.Controllers
         #endregion
 
         #region Permission
+        [SuncereAuthorize(Controller = "System", Action = "PermissionList")]
         public ActionResult PermissionList()
         {
             SelectList selectList = GetParentPermissionSelectList(null);
@@ -577,7 +579,7 @@ namespace SuncereDataCenter.API.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PermissionEdit([Bind(Include = "Id,Type,Controller,Action,Order,ParentId,Icon,Status,Remark")] SuncerePermission permission)
+        public ActionResult PermissionEdit([Bind(Include = "Id,Name,Type,Controller,Action,Order,ParentId,Icon,Status,Remark")] SuncerePermission permission)
         {
             if (ModelState.IsValid)
             {
@@ -634,93 +636,81 @@ namespace SuncereDataCenter.API.Controllers
         #endregion
 
         #region Area
-        //public ActionResult AreaList()
-        //{
-        //    return View(model.Area.ToList());
-        //}
+        public ActionResult AreaList()
+        {
+            return View(model.Area.ToList());
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult AreaList(string keyword)
-        //{
-        //    IQueryable<Area> query = model.Area;
-        //    if (!string.IsNullOrEmpty(keyword))
-        //    {
-        //        query = query.Where(o => o.AreaCode.Contains(keyword) || o.AreaName.Contains(keyword));
-        //    }
-        //    ViewBag.Keyword = keyword;
-        //    return View(query.ToList());
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AreaList(string keyword)
+        {
+            IQueryable<Area> query = model.Area;
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(o => o.AreaCode.Contains(keyword) || o.AreaName.Contains(keyword));
+            }
+            ViewBag.Keyword = keyword;
+            return View(query.ToList());
+        }
 
-        //public ActionResult AreaAdd()
-        //{
-        //    return View();
-        //}
+        public ActionResult AreaAdd()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult AreaAdd([Bind(Include = "AreaCode,AreaName")] Area area)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        Area item = model.Area.FirstOrDefault(o => o.AreaCode == area.AreaCode);
-        //        if (item == null)
-        //        {
-        //            model.Area.Add(area);
-        //            model.SaveChanges();
-        //            return RedirectToAction("AreaList");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("AreaCode", "编码已存在！");
-        //        }
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AreaAdd([Bind(Include = "AreaCode,AreaName")] Area area)
+        {
+            if (ModelState.IsValid)
+            {
+                Area item = model.Area.FirstOrDefault(o => o.AreaCode == area.AreaCode);
+                if (item == null)
+                {
+                    model.Area.Add(area);
+                    model.SaveChanges();
+                    return RedirectToAction("AreaList");
+                }
+                else
+                {
+                    ModelState.AddModelError("AreaCode", "编码已存在！");
+                }
+            }
 
-        //    return View(area);
-        //}
+            return View(area);
+        }
 
-        //public ActionResult AreaDetails(int id)
-        //{
-        //    Area area = model.Area.Find(id);
-        //    if (area == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(area);
-        //}
+        public ActionResult AreaEdit(string areaCode)
+        {
+            Area area = model.Area.Find(areaCode);
+            if (area == null)
+            {
+                return HttpNotFound();
+            }
+            return View(area);
+        }
 
-        //public ActionResult AreaEdit(int id)
-        //{
-        //    Area area = model.Area.Find(id);
-        //    if (area == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(area);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult AreaEdit([Bind(Include = "AreaCode,AreaName")] Area area)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        Area item = model.Area.Find(area.AreaCode);
-        //        if (item == null)
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //        else
-        //        {
-        //            item.Status = role.Status;
-        //            item.Remark = role.Remark;
-        //            item.LastModificationTime = DateTime.Now;
-        //            model.SaveChanges();
-        //            return RedirectToAction("AreaList");
-        //        }
-        //    }
-        //    return View(role);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AreaEdit([Bind(Include = "AreaCode,AreaName")] Area area)
+        {
+            if (ModelState.IsValid)
+            {
+                Area item = model.Area.Find(area.AreaCode);
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    item.AreaName = area.AreaName;
+                    model.SaveChanges();
+                    return RedirectToAction("AreaList");
+                }
+            }
+            return View(area);
+        }
 
         //public ActionResult AreaDelete(int id)
         //{

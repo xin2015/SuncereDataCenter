@@ -29,7 +29,7 @@ namespace SuncereDataCenter.API.Controllers
 
         public string GetToken()
         {
-            TokenModel tm = new TokenModel("admin", "Suncere@123");
+            TokenModel tm = new TokenModel("test", "Test@2020");
             return AsymmetricEncryption.Default.EncryptToString(JsonConvert.SerializeObject(tm));
         }
 

@@ -225,6 +225,8 @@
     <Content Include="Views\Home\LoginTemp.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\System\ChangePassword.cshtml" />
+    <Content Include="Views\System\AreaList.cshtml" />
+    <Content Include="Views\System\AreaAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

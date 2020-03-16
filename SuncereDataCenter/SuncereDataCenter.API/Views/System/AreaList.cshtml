@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SuncereDataCenter.Model.Area>
+@{
+    ViewBag.Title = "地区管理";
+}
+
+<h3 class="page-header">查询</h3>
+<form class="form-inline" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label class="control-label" for="keyword">关键字：</label>
+        @Html.TextBox("keyword", ViewBag.Keyword as string, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">查询</button>
+    </div>
+</form>
+<h3 class="page-header">表格</h3>
+<p>
+    @Html.ActionLink("新增", "AreaAdd", null, new { @class = "btn btn-success" })
+</p>
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>编码</th>
+            <th>名称</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AreaCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AreaName)
+                </td>
+                <td>
+                    @Html.ActionLink("编辑", "AreaEdit", new { areaCode = item.AreaCode }, new { @class = "btn btn-warning btn-sm" })
+                    @Html.ActionLink("删除", "AreaDelete", new { areaCode = item.AreaCode }, new { @class = "btn btn-danger btn-sm" })
+                    @Html.ActionLink("城市", "AreaCityList", new { areaCode = item.AreaCode }, new { @class = "btn btn-default btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
