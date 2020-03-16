@@ -1,4 +1,6 @@
-﻿using SuncereDataCenter.Basic.CryptoTransverters;
+﻿using SuncereDataCenter.API.Models;
+using SuncereDataCenter.Basic.CryptoTransverters;
+using SuncereDataCenter.Core.Attributes;
 using SuncereDataCenter.Model;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Web.Mvc;
 
 namespace SuncereDataCenter.API.Controllers
 {
+    [SuncereAuthorize]
     public class SystemController : Controller
     {
         private SuncereDataCenterModel model;
@@ -19,6 +22,7 @@ namespace SuncereDataCenter.API.Controllers
         }
 
         #region User
+        [SuncereAuthorize(Controller = "System", Action = "UserList")]
         public ActionResult UserList()
         {
             return View(model.SuncereUser.ToList());
@@ -242,6 +246,37 @@ namespace SuncereDataCenter.API.Controllers
             user.SuncereRole.Remove(role);
             model.SaveChanges();
             return RedirectToAction("UserRoleList", new { userId = userId });
+        }
+
+        public ActionResult ChangePassword(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordViewModel item, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                SuncereUser user = model.SuncereUser.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                if (SHA1Encryption.Default.EncryptPassword(item.OldPassword) == user.Password)
+                {
+                    user.Password = SHA1Encryption.Default.EncryptPassword(item.NewPassword);
+                    user.LastModificationTime = DateTime.Now;
+                    model.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("OldPassword", "旧密码不正确。");
+                }
+            }
+            return View(item);
         }
         #endregion
 

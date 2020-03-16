@@ -17,7 +17,7 @@ else
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink(user.DisplayName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink(user.DisplayName, "ChangePassword", "System", routeValues: new { id = user.Id }, htmlAttributes: new { title = "更改密码" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">注销</a></li>
         </ul>
