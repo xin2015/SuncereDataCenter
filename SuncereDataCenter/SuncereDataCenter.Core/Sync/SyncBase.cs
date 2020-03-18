@@ -22,9 +22,6 @@ namespace SuncereDataCenter.Core.Sync
         protected SuncereDataCenterModel Model { get; set; }
         protected string Class { get; set; }
         protected ILog Logger { get; set; }
-        protected TimeSpan Interval { get; set; }
-        protected TimeSpan StartTimeDeviation { get; set; }
-        protected TimeSpan EndTimeDeviation { get; set; }
 
         public SyncBase(SuncereDataCenterModel model)
         {
@@ -55,7 +52,25 @@ namespace SuncereDataCenter.Core.Sync
         /// 获取时间
         /// </summary>
         /// <returns></returns>
-        protected abstract DateTime GetTime();
+        protected virtual DateTime GetTime()
+        {
+            return DateTime.Today.AddDays(-1);
+        }
+
+        protected virtual DateTime GetStartTime(DateTime time)
+        {
+            return time.AddDays(1);
+        }
+
+        protected virtual DateTime GetEndTime(DateTime time)
+        {
+            return time.AddDays(6);
+        }
+
+        protected virtual DateTime GetNextTime(DateTime time)
+        {
+            return time.AddDays(1);
+        }
 
         public void CheckQueue(DateTime time)
         {
@@ -66,8 +81,8 @@ namespace SuncereDataCenter.Core.Sync
                 {
                     Class = Class,
                     Time = time,
-                    StartTime = time.Add(StartTimeDeviation),
-                    EndTime = time.Add(EndTimeDeviation),
+                    StartTime = GetStartTime(time),
+                    EndTime = GetEndTime(time),
                     LastTime = DateTime.Now
                 };
                 Model.SyncDataQueue.Add(queue);
@@ -76,7 +91,7 @@ namespace SuncereDataCenter.Core.Sync
 
         public void CheckQueue(DateTime startTime, DateTime endTime)
         {
-            for (DateTime time = startTime; time <= endTime; time = time.Add(Interval))
+            for (DateTime time = startTime; time <= endTime; time = GetNextTime(time))
             {
                 CheckQueue(time);
             }

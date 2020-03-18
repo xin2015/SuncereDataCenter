@@ -819,6 +819,24 @@ namespace SuncereDataCenter.Web.Controllers
         #endregion
 
         #region City
+        [AllowAnonymous]
+        public ActionResult CityList()
+        {
+            return View(model.City.ToList());
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult CityList(string keyword)
+        {
+            IQueryable<City> query = model.City;
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(o => o.CityCode.Contains(keyword) || o.CityName.Contains(keyword));
+            }
+            return View(query.ToList());
+        }
         #endregion
 
         protected override void Dispose(bool disposing)

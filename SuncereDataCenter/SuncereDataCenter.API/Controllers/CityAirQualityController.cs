@@ -244,8 +244,8 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (validator.Validate(token, "CityAirQuality", "GetCityQuarterlyAirQualityYearOnYear"))
             {
-                List<AirQualityLongTerm> list = GetCityMonthlyAirQuality(token, time, areaCode);
-                List<AirQualityLongTerm> baseList = GetCityMonthlyAirQuality(token, time.AddYears(-1), areaCode);
+                List<AirQualityLongTerm> list = GetCityQuarterlyAirQuality(token, time, areaCode);
+                List<AirQualityLongTerm> baseList = GetCityQuarterlyAirQuality(token, time.AddYears(-1), areaCode);
                 AirQualityLongTermYearOnYearCalculator calculator = new AirQualityLongTermYearOnYearCalculator();
                 return calculator.Calculate(list, baseList);
             }
@@ -259,8 +259,8 @@ namespace SuncereDataCenter.API.Controllers
         {
             if (validator.Validate(token, "CityAirQuality", "GetCityYearlyAirQualityYearOnYear"))
             {
-                List<AirQualityLongTerm> list = GetCityMonthlyAirQuality(token, time, areaCode);
-                List<AirQualityLongTerm> baseList = GetCityMonthlyAirQuality(token, time.AddYears(-1), areaCode);
+                List<AirQualityLongTerm> list = GetCityYearlyAirQuality(token, time, areaCode);
+                List<AirQualityLongTerm> baseList = GetCityYearlyAirQuality(token, time.AddYears(-1), areaCode);
                 AirQualityLongTermYearOnYearCalculator calculator = new AirQualityLongTermYearOnYearCalculator();
                 return calculator.Calculate(list, baseList);
             }

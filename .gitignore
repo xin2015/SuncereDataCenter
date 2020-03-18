@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/SuncereDataCenter/SuncereDataCenter.Web/Views/System/CityList.cshtml
+/SuncereDataCenter/SuncereDataCenter.Web/Views/Cities
+/SuncereDataCenter/SuncereDataCenter.Web/Controllers/CitiesController.cs

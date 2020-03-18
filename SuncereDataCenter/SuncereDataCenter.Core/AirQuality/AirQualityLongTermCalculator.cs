@@ -20,7 +20,7 @@ namespace SuncereDataCenter.Core.AirQuality
             rankCalculator.Calculate(data, o => o.O3, (o, rank) => { o.O3R = rank; });
             rankCalculator.Calculate(data, o => o.PM25, (o, rank) => { o.PM25R = rank; });
             rankCalculator.Calculate(data, o => o.AQCI, (o, rank) => { o.AQCIR = rank; });
-            rankCalculator.Calculate(data, o => o.StandardDays, (o, rank) => { o.StandardDaysR = rank; });
+            rankCalculator.CalculateDescending(data, o => o.StandardDays, (o, rank) => { o.StandardDaysR = rank; });
         }
 
         public void Calculate(IEnumerable<IAirQualityIndexCalculate> data, IAirQualityStatistics result)

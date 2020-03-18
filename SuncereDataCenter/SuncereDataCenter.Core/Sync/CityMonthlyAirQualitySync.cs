@@ -14,9 +14,7 @@ namespace SuncereDataCenter.Core.Sync
     {
         public CityMonthlyAirQualitySync(SuncereDataCenterModel model) : base(model)
         {
-            Interval = TimeSpan.FromDays(30);
-            StartTimeDeviation = TimeSpan.FromDays(1);
-            EndTimeDeviation = TimeSpan.FromDays(2);
+
         }
 
         protected override void Sync(SyncDataQueue queue)
@@ -49,9 +47,9 @@ namespace SuncereDataCenter.Core.Sync
             queue.LastTime = DateTime.Now;
         }
 
-        protected override DateTime GetTime()
+        protected override DateTime GetNextTime(DateTime time)
         {
-            return DateTime.Today.AddDays(-1);
+            return time.AddMonths(1);
         }
     }
 }

@@ -12,9 +12,7 @@ namespace SuncereDataCenter.Core.Sync
     {
         public CityHourlyAirQualitySync(SuncereDataCenterModel model) : base(model)
         {
-            Interval = TimeSpan.FromHours(1);
-            StartTimeDeviation = TimeSpan.FromMinutes(28);
-            EndTimeDeviation = TimeSpan.FromDays(5);
+
         }
 
         protected override void Sync(SyncDataQueue queue)
@@ -54,6 +52,21 @@ namespace SuncereDataCenter.Core.Sync
         protected override DateTime GetTime()
         {
             return DateTime.Today.AddHours(DateTime.Now.Hour);
+        }
+
+        protected override DateTime GetStartTime(DateTime time)
+        {
+            return time.AddMinutes(28);
+        }
+
+        protected override DateTime GetEndTime(DateTime time)
+        {
+            return time.AddDays(5);
+        }
+
+        protected override DateTime GetNextTime(DateTime time)
+        {
+            return time.AddHours(1);
         }
     }
 }
